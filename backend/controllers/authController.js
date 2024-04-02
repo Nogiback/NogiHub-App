@@ -87,12 +87,57 @@ export const signup = [
 
 // LOGIN POST
 
-export const login = (req, res, next) => {
-  res.send("User logged in");
-};
+export const login = [
+  body("username", "Username must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("password", "Password must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(401).json({
+        errors: errors.array(),
+        message: "Error: Login Failure.",
+      });
+      return;
+    }
+
+    const user = await User.findOne({ username: req.body.username });
+    const isValidPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    if (!isValidPassword || !user) {
+      return res
+        .status(401)
+        .json({ message: "Incorrect username or password." });
+    }
+
+    generateToken(user._id, res);
+
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      displayName: user.displayName,
+      profilePic: user.profilePic,
+      email: user.email,
+      location: user.location,
+      bio: user.bio,
+      message: "User successfully logged in.",
+    });
+  }),
+];
 
 // LOGOUT POST
 
 export const logout = (req, res, next) => {
-  res.send("User logged out");
+  res.cookie("jwt", "", { maxAge: 0 });
+  res.status(200).json({ message: "User logged out successfully." });
 };
