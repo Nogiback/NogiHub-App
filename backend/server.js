@@ -13,11 +13,9 @@ import connectToMongoDB from "./database/connectToMongoDB.js";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
