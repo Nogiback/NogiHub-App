@@ -8,6 +8,8 @@ import {
   getLikedPosts,
   getUserPosts,
   updateUser,
+  addToFollowing,
+  removeFromFollowing,
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -18,6 +20,9 @@ router.get("/:userID/followers", verifyUser, getFollowers);
 router.get("/:userID/following", verifyUser, getFollowing);
 router.get("/:userID/likes", verifyUser, getLikedPosts);
 router.get("/:userID/posts", verifyUser, getUserPosts);
-router.put("/:userID/update", verifyUser, updateUser);
+
+router.patch("/:userID/update", verifyUser, updateUser);
+router.patch("/add/:followID", verifyUser, addToFollowing);
+router.patch("/remove/:followID", verifyUser, removeFromFollowing);
 
 export default router;

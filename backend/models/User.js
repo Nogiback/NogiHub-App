@@ -14,11 +14,8 @@ const UserSchema = new Schema(
     location: { type: String, default: "" },
     profilePic: { type: String, default: "" },
     bio: { type: String, default: "" },
-    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    likes: [{ type: Schema.Types.ObjectId, ref: "Post" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "User" }],
     following: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   // createdAt, updatedAt
   { timestamps: true }

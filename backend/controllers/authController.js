@@ -58,7 +58,7 @@ export const signup = [
         res.status(500).json({ err });
         return;
       } else {
-        const defaultPic = `https://ui-avatars.com/api/?name=${req.body.username}`;
+        const defaultPic = `https://api.dicebear.com/8.x/identicon/svg?seed=${req.body.username}`;
         const newUser = new User({
           username: req.body.username,
           email: req.body.email,
