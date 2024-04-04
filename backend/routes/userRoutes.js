@@ -21,7 +21,7 @@ router.get("/:userID/following", verifyUser, getFollowing);
 router.get("/:userID/likes", verifyUser, getLikedPosts);
 router.get("/:userID/posts", verifyUser, getUserPosts);
 
-router.patch("/:userID/update", verifyUser, updateUser);
+router.patch("/update", verifyUser, updateUser);
 router.patch("/add/:followID", verifyUser, addToFollowing);
 router.patch("/remove/:followID", verifyUser, removeFromFollowing);
 
