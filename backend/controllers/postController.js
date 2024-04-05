@@ -25,7 +25,7 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
   const currentUser = await User.findById(req.user._id).exec();
   const followingPosts = await Post.find({
     author: { $in: currentUser.following },
-  });
+  }).exec();
 
   if (!followingPosts) {
     res.status(404).json({ message: "Error: No posts found." });
@@ -35,12 +35,32 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
   res.status(200).json(followingPosts);
 });
 
+// GET SINGLE POST
+
 export const getPost = asyncHandler(async (req, res, next) => {
-  res.send("getPost NOT YET IMPLEMENTED");
+  const post = await Post.findById(req.params.postID).exec();
+
+  if (!post) {
+    res.status(404).json({ message: "Error: No post found." });
+    return;
+  }
+
+  res.status(200).json(post);
 });
 
+// GET POST COMMENTS
+
 export const getPostComments = asyncHandler(async (req, res, next) => {
-  res.send("getPostComments NOT YET IMPLEMENTED");
+  const comments = await Post.findById(req.params.postID)
+    .select("comments")
+    .exec();
+
+  if (!comments) {
+    res.status(404).json({ message: "Error: No post found." });
+    return;
+  }
+
+  res.status(200).json(comments);
 });
 
 // CREATE POST

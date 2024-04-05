@@ -9,6 +9,7 @@ import postRoutes from "./routes/postRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 
 import connectToMongoDB from "./database/connectToMongoDB.js";
+import handleError from "./middlewares/handleError.js";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/comments", commentRoutes);
+app.use(handleError);
 
 app.listen(PORT, () => {
   connectToMongoDB();
