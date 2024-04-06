@@ -17,7 +17,7 @@ export const signup = [
     .isLength({ min: 1 })
     .escape(),
   body("location").trim().escape().optional(),
-  body("bio").trim().escape().optional(),
+  body("bio").trim().optional(),
   body("password", "Password must not be empty.")
     .trim()
     .isLength({ min: 1 })
@@ -53,12 +53,15 @@ export const signup = [
       return;
     }
 
+    // Hashing Password
+
     bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
       if (err) {
         res.status(500).json({ err });
         return;
       } else {
         const defaultPic = `https://api.dicebear.com/8.x/identicon/svg?seed=${req.body.username}`;
+
         const newUser = new User({
           username: req.body.username,
           email: req.body.email,
@@ -68,8 +71,12 @@ export const signup = [
           profilePic: defaultPic,
           password: hashedPassword,
         });
+
+        // Generating token for auth
         generateToken(newUser._id, res);
+
         await newUser.save();
+
         res.status(201).json({
           message: "New user created successfully.",
           _id: newUser._id,

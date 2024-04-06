@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
 import User from "../models/User.js";
 import Post from "../models/Post.js";
+import Comment from "../models/Comment.js";
 
 // GET ALL POSTS
 
@@ -66,10 +67,7 @@ export const getPostComments = asyncHandler(async (req, res, next) => {
 // CREATE POST
 
 export const createPost = [
-  body("content", "Content cannot be empty.")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+  body("content", "Content cannot be empty.").trim().isLength({ min: 1 }),
   body("image").trim().optional(),
 
   asyncHandler(async (req, res, next) => {
@@ -97,22 +95,134 @@ export const createPost = [
   }),
 ];
 
-export const createComment = asyncHandler(async (req, res, next) => {
-  res.send("createComment NOT YET IMPLEMENTED");
-});
+// CREATE COMMENT
+
+export const createComment = [
+  body("content", "Content cannot be empty.").trim().isLength({ min: 1 }),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({
+        errors: errors.array(),
+        message: "Error: Create comment failure.",
+      });
+      return;
+    }
+    const content = req.body.content;
+    const author = req.user._id;
+
+    const newComment = new Comment({
+      author,
+      content,
+    });
+
+    await newComment.save();
+    await Post.findByIdAndUpdate(req.params.postID, {
+      $push: { comments: newComment },
+    });
+    res.status(200).json(newComment);
+  }),
+];
+
+// DELETE POST
 
 export const deletePost = asyncHandler(async (req, res, next) => {
-  res.send("deletePost NOT YET IMPLEMENTED");
+  const postToDelete = await Post.findById(req.params.postID).exec();
+  const currentUserID = req.user._id;
+  const isAuthorized = postToDelete.author.equals(currentUserID);
+
+  if (!postToDelete) {
+    res.status(404).json({ message: "Error: No post found." });
+    return;
+  }
+
+  if (!isAuthorized) {
+    res.status(403).json({ message: "Error: Not authorized." });
+    return;
+  }
+
+  if (postToDelete.comments.length === 0) {
+    await Post.findByIdAndDelete(req.params.postID);
+    res.status(200).json({ message: "Post successfully deleted." });
+    return;
+  }
+
+  postToDelete.comments.forEach(async (comment) => {
+    const commentToDelete = await Comment.findById(comment);
+    await Comment.findByIdAndDelete(commentToDelete._id);
+  });
+
+  await Post.findByIdAndDelete(req.params.postID);
+  res.status(200).json({ message: "Post successfully deleted." });
 });
+
+// DELETE COMMENT
 
 export const deleteComment = asyncHandler(async (req, res, next) => {
-  res.send("deleteComment NOT YET IMPLEMENTED");
+  const commentToDelete = await Comment.findById(req.params.commentID).exec();
+  const currentUserID = req.user._id;
+  const isAuthorized = commentToDelete.author.equals(currentUserID);
+
+  if (!commentToDelete) {
+    res.status(404).json({ message: "Error: No comment found." });
+    return;
+  }
+
+  if (!isAuthorized) {
+    res.status(403).json({ message: "Error: Not authorized." });
+    return;
+  }
+
+  await Post.findByIdAndUpdate(req.params.postID, {
+    $pullAll: { comments: [commentToDelete] },
+  });
+
+  await Comment.findByIdAndDelete(req.params.commentID);
+  res.status(200).json({ message: "Comment successfully deleted." });
 });
+
+// ADD LIKE TO POST
 
 export const addLikeToPost = asyncHandler(async (req, res, next) => {
-  res.send("addLikeToPost NOT YET IMPLEMENTED");
+  const currentUser = await User.findById(req.user._id).exec();
+  const likedPost = await Post.findById(req.params.postID).exec();
+
+  if (!currentUser) {
+    res.status(404).json({ message: "Error: No current user found." });
+    return;
+  }
+
+  if (!likedPost) {
+    res.status(404).json({ message: "Error: No post found." });
+    return;
+  }
+
+  await Post.findByIdAndUpdate(req.params.postID, {
+    $push: { likes: currentUser },
+  });
+  res.status(200).json({ message: "User successfully liked post." });
 });
 
+// REMOVE LIKE FROM POST
+
 export const removeLikeFromPost = asyncHandler(async (req, res, next) => {
-  res.send("removeLikeFromPost NOT YET IMPLEMENTED");
+  const currentUser = await User.findById(req.user._id).exec();
+  const unlikedPost = await Post.findById(req.params.postID).exec();
+
+  if (!currentUser) {
+    res.status(404).json({ message: "Error: No current user found." });
+    return;
+  }
+
+  if (!unlikedPost) {
+    res.status(404).json({ message: "Error: No post found." });
+    return;
+  }
+
+  await Post.findByIdAndUpdate(req.params.postID, {
+    $pullAll: { likes: [currentUser] },
+  });
+  res.status(200).json({ message: "User successfully unliked post." });
 });

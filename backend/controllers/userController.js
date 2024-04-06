@@ -6,8 +6,8 @@ import Post from "../models/Post.js";
 // GET ALL USERS EXCEPT CURRENT USER
 
 export const getAllUsers = asyncHandler(async (req, res, next) => {
-  const currentUser = req.user._id;
-  const allUsers = await User.find({ _id: { $ne: currentUser } })
+  const currentUserID = req.user._id;
+  const allUsers = await User.find({ _id: { $ne: currentUserID } })
     .select("-password")
     .sort({ username: 1 })
     .exec();
@@ -23,7 +23,9 @@ export const getAllUsers = asyncHandler(async (req, res, next) => {
 // GET SINGLE USER
 
 export const getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userID).exec();
+  const user = await User.findById(req.params.userID)
+    .select("-password")
+    .exec();
 
   if (!user) {
     res.status(404).json({ message: "Error: No user found." });
