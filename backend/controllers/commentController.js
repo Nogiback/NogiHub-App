@@ -1,5 +1,4 @@
 import asyncHandler from "express-async-handler";
-import { body, validationResult } from "express-validator";
 import Comment from "../models/Comment.js";
 
 // GET ALL COMMENTS
