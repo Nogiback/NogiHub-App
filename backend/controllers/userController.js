@@ -76,13 +76,29 @@ export const getFollowing = asyncHandler(async (req, res, next) => {
 // GET USER'S LIKED POSTS
 
 export const getLikedPosts = asyncHandler(async (req, res, next) => {
-  res.send("getLikedPosts NOT YET IMPLEMENTED");
+  const userID = req.params.userID;
+  const likedPosts = await Post.find({ likes: { $in: userID } }).exec();
+
+  if (!likedPosts) {
+    res.status(404).json({ message: "Error: No liked posts found." });
+    return;
+  }
+
+  res.status(200).json(likedPosts);
 });
 
 // GET USER'S POSTS
 
 export const getUserPosts = asyncHandler(async (req, res, next) => {
-  res.send("getUserPosts NOT YET IMPLEMENTED");
+  const userID = req.params.userID;
+  const userPosts = await Post.find({ author: userID }).exec();
+
+  if (!userPosts) {
+    res.status(404).json({ message: "Error: No user posts found." });
+    return;
+  }
+
+  res.status(200).json(userPosts);
 });
 
 // UPDATE USER'S PROFILE
