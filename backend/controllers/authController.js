@@ -78,14 +78,14 @@ export const signup = [
         await newUser.save();
 
         res.status(201).json({
-          message: "New user created successfully.",
           _id: newUser._id,
           username: newUser.username,
-          email: newUser.email,
           displayName: newUser.displayName,
+          profilePic: newUser.profilePic,
+          email: newUser.email,
           location: newUser.location,
           bio: newUser.bio,
-          profilePic: newUser.profilePic,
+          message: "New user created successfully.",
         });
       }
     });

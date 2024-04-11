@@ -39,7 +39,9 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
 // GET SINGLE POST
 
 export const getPost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.postID).exec();
+  const post = await Post.findById(req.params.postID)
+    .populate({ path: "author", select: "displayName username" })
+    .exec();
 
   if (!post) {
     res.status(404).json({ message: "Error: No post found." });

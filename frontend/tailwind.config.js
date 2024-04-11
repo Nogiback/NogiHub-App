@@ -8,14 +8,27 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: '#4E6C50',
-          secondary: '#AA8B56',
-          accent: '#F0EBCE',
+          primary: '#F66B0E',
+          secondary: '#EFEFEF',
+          accent: '#0174BE',
           neutral: '#111827',
-          'base-100': '#395144',
+          'base-100': '#112B3C',
           info: '#0080ff',
-          success: '#a3e635',
-          warning: '#ffbe00',
+          success: '#84cc16',
+          warning: '#fbbf24',
+          error: '#da0042',
+        },
+      },
+      {
+        mytheme2: {
+          primary: '#F66B0E',
+          secondary: '#112B3C',
+          accent: '#0174BE',
+          neutral: '#111827',
+          'base-100': '#EFEFEF',
+          info: '#0080ff',
+          success: '#84cc16',
+          warning: '#fbbf24',
           error: '#da0042',
         },
       },
