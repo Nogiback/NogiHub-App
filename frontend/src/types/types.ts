@@ -41,3 +41,12 @@ export type LoginFormData = {
   username: string;
   password: string;
 };
+
+export type SignupFormData = {
+  email: string;
+  username: string;
+  location: string;
+  bio: string;
+  password: string;
+  confirmPassword: string;
+};
