@@ -36,3 +36,8 @@ export type Post = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type LoginFormData = {
+  username: string;
+  password: string;
+};

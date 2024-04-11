@@ -1,5 +1,9 @@
-import React from 'react';
+import ThemeToggler from '../components/ThemeToggler';
 
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <ThemeToggler />
+    </div>
+  );
 }
