@@ -11,7 +11,7 @@ function App() {
   const { authUser } = useAuthContext();
 
   return (
-    <div className='flex h-screen items-center justify-center'>
+    <>
       <Routes>
         <Route
           path='/'
@@ -33,7 +33,7 @@ function App() {
         <Route path='*' element={<Navigate to='/404' replace />} />
       </Routes>
       <Toaster closeButton richColors />
-    </div>
+    </>
   );
 }
 

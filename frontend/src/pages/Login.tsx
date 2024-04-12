@@ -19,7 +19,7 @@ export default function Login() {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-base-300 bg-clip-padding p-8 shadow-xl backdrop-blur-xl'>
+    <div className='flex h-screen flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-base-300 bg-clip-padding p-8 shadow-xl backdrop-blur-xl'>
       <FlameKindling size={32} color='#F66B0E' />
       <h3 className='text-4xl font-bold'>Login</h3>
       <p>Welcome Back to NogiHub!</p>
