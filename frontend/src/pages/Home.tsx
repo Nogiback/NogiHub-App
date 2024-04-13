@@ -2,7 +2,7 @@ import SidebarNav from '../components/SidebarNav';
 
 export default function Home() {
   return (
-    <div className='flex w-full flex-col gap-2 p-8 sm:gap-6 md:flex-row'>
+    <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>
       <SidebarNav />
       <div className='container flex flex-col'>
         <p>

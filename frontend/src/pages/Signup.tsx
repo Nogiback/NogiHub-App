@@ -29,7 +29,7 @@ export default function Signup() {
     <div className='flex items-center justify-center'>
       <div className='flex h-screen w-screen flex-col items-center justify-center gap-4 overflow-hidden rounded-lg bg-base-300 bg-clip-padding p-8 shadow-xl backdrop-blur-xl'>
         <FlameKindling size={42} color='#F66B0E' />
-        <h3 className='text-4xl font-bold'>Welcome to NogiHub</h3>
+        <h3 className='text-center text-4xl font-bold'>Welcome to NogiHub</h3>
         <p>Sign up below to join the community!</p>
         <form
           className='flex w-full flex-col gap-4 sm:w-[500px]'

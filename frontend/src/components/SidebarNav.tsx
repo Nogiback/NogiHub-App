@@ -1,9 +1,13 @@
 import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
 import useLogout from '../hooks/useLogout';
 import ThemeToggler from './ThemeToggler';
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function SidebarNav() {
   const { logout } = useLogout();
+  const { authUser } = useAuthContext();
+
   return (
     <>
       <aside className='sticky top-8 hidden h-full min-w-64 flex-col items-center space-y-4 overflow-y-auto bg-base-100 px-4 py-6 md:flex'>
@@ -24,28 +28,28 @@ export default function SidebarNav() {
 
         <ul className='menu menu-lg w-full'>
           <li>
-            <a href='/' className='flex gap-4'>
+            <Link to='/' className='flex gap-4'>
               <Home />
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a className='flex gap-4'>
+            <Link to={`/${authUser?._id}`} className='flex gap-4'>
               <User />
               Profile
-            </a>
+            </Link>
           </li>
           <li>
-            <a className='flex gap-4'>
+            <Link to={`/${authUser?._id}/followers`} className='flex gap-4'>
               <Users />
               Followers
-            </a>
+            </Link>
           </li>
           <li>
-            <a className='flex gap-4'>
+            <Link to={`/${authUser?._id}/following`} className='flex gap-4'>
               <Eye />
               Following
-            </a>
+            </Link>
           </li>
           <li>
             <a onClick={logout} className='flex gap-4'>
@@ -54,10 +58,10 @@ export default function SidebarNav() {
             </a>
           </li>
           <li>
-            <a href='' className='btn btn-primary my-8'>
+            <Link to='/post' className='btn btn-primary my-8'>
               <SquarePen />
               Post
-            </a>
+            </Link>
           </li>
           <li>
             <ThemeToggler />
@@ -92,16 +96,19 @@ export default function SidebarNav() {
             </div>
             <ul
               tabIndex={0}
-              className='menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow'
+              className='menu dropdown-content menu-md z-[1] mt-3 w-52 rounded-box bg-base-200 p-2 shadow'
             >
               <li>
-                <a>Homepage</a>
+                <Link to='/'>Home</Link>
               </li>
               <li>
-                <a>Portfolio</a>
+                <Link to={`/${authUser?._id}/followers`}>Followers</Link>
               </li>
               <li>
-                <a>About</a>
+                <Link to={`/${authUser?._id}/following`}>Following</Link>
+              </li>
+              <li>
+                <Link to='/post'>Post</Link>
               </li>
             </ul>
           </div>
@@ -122,26 +129,23 @@ export default function SidebarNav() {
             >
               <div className='w-10 rounded-full'>
                 <img
-                  alt='Tailwind CSS Navbar component'
-                  src='https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg'
+                  alt='user avatar'
+                  src='https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Oscar'
                 />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className='menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow'
+              className='menu dropdown-content menu-md z-[1] mt-3 w-52 rounded-box bg-base-200 p-2 shadow'
             >
               <li>
-                <a className='justify-between'>
-                  Profile
-                  <span className='badge'>New</span>
-                </a>
+                <Link to={`/${authUser?._id}`}>Profile</Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to='/'>Settings</Link>
               </li>
               <li>
-                <a>Logout</a>
+                <a onClick={logout}>Logout</a>
               </li>
             </ul>
           </div>
