@@ -58,10 +58,19 @@ export default function SidebarNav() {
             </a>
           </li>
           <li>
-            <Link to='/post' className='btn btn-primary my-8'>
+            <button
+              onClick={() =>
+                (
+                  document.getElementById(
+                    'post-modal',
+                  ) as HTMLDialogElement | null
+                )?.showModal()
+              }
+              className='btn btn-primary my-8'
+            >
               <SquarePen />
               Post
-            </Link>
+            </button>
           </li>
           <li>
             <ThemeToggler />
@@ -108,7 +117,17 @@ export default function SidebarNav() {
                 <Link to={`/${authUser?._id}/following`}>Following</Link>
               </li>
               <li>
-                <Link to='/post'>Post</Link>
+                <button
+                  onClick={() =>
+                    (
+                      document.getElementById(
+                        'post-modal',
+                      ) as HTMLDialogElement | null
+                    )?.showModal()
+                  }
+                >
+                  Post
+                </button>
               </li>
             </ul>
           </div>
