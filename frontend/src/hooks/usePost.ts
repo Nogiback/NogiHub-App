@@ -1,34 +1,51 @@
-// import { useState } from 'react';
-// import axios from 'axios';
-// import { toast } from 'sonner';
-// import { useAuthContext } from '../context/AuthContext';
+import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'sonner';
 
-// export default function usePost() {
-//   const [isLoading, setIsLoading] = useState(false);
-//   const { setAuthUser } = useAuthContext();
+export default function usePost() {
+  const [isLoading, setIsLoading] = useState(false);
+  const UPLOAD_PRESET: string = import.meta.env.VITE_UPLOAD_PRESET;
+  const CLOUD_NAME: string = import.meta.env.VITE_CLOUD_NAME;
 
-//   async function submitPost(formData: SignupFormData) {
-//     const isValid = handleInputErrors(formData);
-//     if (!isValid) return;
-//     setIsLoading(true);
+  async function submitPost(content: string, postImage: File | null) {
+    setIsLoading(true);
 
-//     try {
-//       const res = await axios.post('/api/auth/signup', formData);
-//       if (res.status === 201) {
-//         toast.success('Account successfully created.');
-//       } else {
-//         throw new Error(res.data);
-//       }
-//       localStorage.setItem('authUser', JSON.stringify(res.data));
-//       setAuthUser(res.data);
-//     } catch (err) {
-//       if (err instanceof AxiosError) {
-//         toast.error(err.response?.data.message);
-//       }
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   }
+    try {
+      let imageURL;
 
-//   return { isLoading, signupUser };
-// }
+      // Cloudinary image upload
+      if (postImage && postImage.type.includes('image')) {
+        const image = new FormData();
+        image.append('file', postImage);
+        image.append('cloud_name', CLOUD_NAME);
+        image.append('upload_preset', UPLOAD_PRESET);
+
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/nogihub/image/upload',
+          image,
+        );
+        imageURL = res.data.url;
+      }
+      const postData = {
+        content: content,
+        image: imageURL,
+      };
+
+      // API call to submit user's post
+      const res = await axios.post('/api/posts/post', postData);
+      if (res.status === 200) {
+        toast.success('Post successfully submitted.');
+      } else {
+        throw new Error(res.data.error);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return { isLoading, submitPost };
+}
