@@ -73,12 +73,12 @@ export default function SidebarNav() {
           <Link to={`/${authUser?._id}`} className='flex items-center gap-2'>
             <img
               alt='Profile'
-              src='https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Oscar'
+              src={authUser?.profilePic}
               className='w-12 rounded-full'
             />
             <div className='flex flex-col'>
-              <h2 className='text-md font-bold'>Display Name</h2>
-              <p className='text-sm font-light text-primary'>@username</p>
+              <h2 className='text-md font-bold'>{authUser?.displayName}</h2>
+              <p className='text-sm font-light text-primary'>{`@${authUser?.username}`}</p>
             </div>
           </Link>
           <ThemeToggler />
@@ -154,10 +154,7 @@ export default function SidebarNav() {
               className='avatar btn btn-circle btn-ghost'
             >
               <div className='w-10 rounded-full'>
-                <img
-                  alt='user avatar'
-                  src='https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Oscar'
-                />
+                <img alt='user avatar' src={authUser?.profilePic} />
               </div>
             </div>
             <ul
