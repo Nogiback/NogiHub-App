@@ -10,77 +10,84 @@ export default function SidebarNav() {
 
   return (
     <>
-      <aside className='sticky top-8 hidden h-full min-w-64 flex-col items-center space-y-4 overflow-y-auto bg-base-100 px-4 py-6 md:flex'>
-        <a href='/' className='btn btn-ghost mb-4 pl-2 text-2xl font-extrabold'>
-          <img alt='Logo' src='/logo.svg' className='w-10' />
-          NogiHub
-        </a>
-
-        <img
-          alt='Profile'
-          src='https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Oscar'
-          className='w-32 rounded-full'
-        />
-
-        <h2 className='text-lg font-bold'>User Name</h2>
-
-        <span className='text-sm text-accent'>username@email.com</span>
-
-        <ul className='menu menu-lg w-full'>
-          <li>
-            <Link to='/' className='flex gap-4'>
-              <Home />
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to={`/${authUser?._id}`} className='flex gap-4'>
-              <User />
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link to={`/${authUser?._id}/followers`} className='flex gap-4'>
-              <Users />
-              Followers
-            </Link>
-          </li>
-          <li>
-            <Link to={`/${authUser?._id}/following`} className='flex gap-4'>
-              <Eye />
-              Following
-            </Link>
-          </li>
-          <li>
-            <a onClick={logout} className='flex gap-4'>
-              <LogOut />
-              Logout
-            </a>
-          </li>
-          <li>
-            <button
-              onClick={() =>
-                (
-                  document.getElementById(
-                    'post-modal',
-                  ) as HTMLDialogElement | null
-                )?.showModal()
-              }
-              className='btn btn-primary my-8'
+      <aside className='sticky top-8 hidden h-[calc(100vh-60px)] min-w-64 flex-col items-center justify-between space-y-4 overflow-y-auto bg-base-100 p-4 md:flex 2xl:ml-96'>
+        <div className='flex w-full flex-col gap-4'>
+          <div className='flex justify-center gap-2 pr-6'>
+            <a
+              href='/'
+              className='mb-2 flex items-center justify-center gap-2 text-2xl font-extrabold'
             >
-              <SquarePen />
-              Post
-            </button>
-          </li>
-          <li>
-            <ThemeToggler />
-          </li>
-        </ul>
+              <img alt='Logo' src='/logo.svg' className='w-10' />
+              NogiHub
+            </a>
+          </div>
+          <ul className='menu menu-lg w-full'>
+            <li>
+              <Link to='/' className='flex gap-4'>
+                <Home />
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to={`/${authUser?._id}`} className='flex gap-4'>
+                <User />
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to={`/${authUser?._id}/followers`} className='flex gap-4'>
+                <Users />
+                Followers
+              </Link>
+            </li>
+            <li>
+              <Link to={`/${authUser?._id}/following`} className='flex gap-4'>
+                <Eye />
+                Following
+              </Link>
+            </li>
+            <li>
+              <a onClick={logout} className='flex gap-4'>
+                <LogOut />
+                Logout
+              </a>
+            </li>
+            <li>
+              <button
+                onClick={() =>
+                  (
+                    document.getElementById(
+                      'post-modal',
+                    ) as HTMLDialogElement | null
+                  )?.showModal()
+                }
+                className='btn btn-primary my-8'
+              >
+                <SquarePen />
+                Post
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div className='flex gap-4'>
+          <Link to={`/${authUser?._id}`} className='flex items-center gap-2'>
+            <img
+              alt='Profile'
+              src='https://api.dicebear.com/8.x/notionists-neutral/svg?seed=Oscar'
+              className='w-12 rounded-full'
+            />
+            <div className='flex flex-col'>
+              <h2 className='text-md font-bold'>Display Name</h2>
+              <p className='text-sm font-light text-primary'>@username</p>
+            </div>
+          </Link>
+          <ThemeToggler />
+        </div>
       </aside>
 
       {/* Mobile Nav */}
 
-      <div className='navbar bg-base-200 md:hidden'>
+      <div className='navbar bg-base-100 md:hidden'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <div

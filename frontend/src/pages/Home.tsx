@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>
       <SidebarNav />
-      <div className='container flex flex-col'>
+      <div className='container flex max-w-[800px] flex-col'>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Neque
