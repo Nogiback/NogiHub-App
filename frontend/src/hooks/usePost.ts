@@ -24,8 +24,12 @@ export default function usePost() {
           'https://api.cloudinary.com/v1_1/nogihub/image/upload',
           image,
         );
+
         imageURL = res.data.url;
+      } else {
+        imageURL = '';
       }
+
       const postData = {
         content: content,
         image: imageURL,
