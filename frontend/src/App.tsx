@@ -7,7 +7,6 @@ import Followers from './pages/Followers';
 import Following from './pages/Following';
 import Posts from './pages/Posts';
 import Likes from './pages/Likes';
-import Post from './pages/Post';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { useAuthContext } from './context/AuthContext';
@@ -29,10 +28,6 @@ function App() {
         <Route
           path='/signup'
           element={authUser ? <Navigate to='/' /> : <Signup />}
-        />
-        <Route
-          path='/post'
-          element={authUser ? <Post /> : <Navigate to='/login' />}
         />
         <Route
           path='/:userID'

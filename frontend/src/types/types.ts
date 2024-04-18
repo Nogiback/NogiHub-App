@@ -50,3 +50,11 @@ export type SignupFormData = {
   password: string;
   confirmPassword: string;
 };
+
+// export type FollowerData = {
+//   _id: string;
+//   username: string;
+//   displayName: string;
+//   email: string;
+//   profilePic: string;
+// };
