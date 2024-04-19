@@ -1,6 +1,5 @@
 import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
 import useLogout from '../hooks/useLogout';
-import ThemeToggler from './ThemeToggler';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -81,7 +80,6 @@ export default function SidebarNav() {
               <p className='text-sm font-light text-primary'>{`@${authUser?.username}`}</p>
             </div>
           </Link>
-          <ThemeToggler />
         </div>
       </aside>
 
@@ -146,7 +144,6 @@ export default function SidebarNav() {
           </a>
         </div>
         <div className='navbar-end flex items-center gap-2'>
-          <ThemeToggler />
           <div className='dropdown dropdown-end'>
             <div
               tabIndex={0}

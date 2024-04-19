@@ -1,5 +1,10 @@
 import React from 'react';
+import { User } from '../types/types';
 
-export default function UserListItem() {
-  return <div>UserListItem</div>;
+type Props = {
+  follower: User;
+};
+
+export default function UserListItem({ follower }: Props) {
+  return <div>{follower._id}</div>;
 }
