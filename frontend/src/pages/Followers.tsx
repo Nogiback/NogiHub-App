@@ -11,18 +11,19 @@ export default function Followers() {
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>
       <SidebarNav />
-      <div className='container flex flex-col gap-2'>
+      <div className='container flex flex-col gap-4'>
         <h1 className='text-4xl font-extrabold underline'>Followers</h1>
-        {followers.map((follower) => (
-          <UserListItem key={follower._id} follower={follower} />
-        ))}
         {isLoading ? (
-          <div className='mt-12 flex flex-col gap-12'>
+          <div className='mt-6 flex flex-col gap-12'>
             <UserCardSkeleton />
             <UserCardSkeleton />
             <UserCardSkeleton />
           </div>
-        ) : null}
+        ) : (
+          followers.map((follower) => (
+            <UserListItem key={follower._id} follower={follower} />
+          ))
+        )}
       </div>
     </div>
   );
