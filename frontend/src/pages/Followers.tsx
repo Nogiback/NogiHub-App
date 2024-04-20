@@ -6,8 +6,6 @@ import useGetFollowers from '../hooks/useGetFollowers';
 export default function Followers() {
   const { isLoading, followers } = useGetFollowers();
 
-  console.log(followers);
-
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>
       <SidebarNav />
@@ -21,7 +19,7 @@ export default function Followers() {
           </div>
         ) : (
           followers.map((follower) => (
-            <UserListItem key={follower._id} follower={follower} />
+            <UserListItem key={follower._id} user={follower} />
           ))
         )}
       </div>
