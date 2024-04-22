@@ -50,7 +50,7 @@ export default function PostModal() {
           <h3 className='text-xl font-bold'>Post</h3>
           <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <textarea
-              className='textarea textarea-bordered w-full'
+              className='textarea textarea-bordered w-full resize-none'
               rows={4}
               placeholder={`What's on your mind?!`}
               onChange={handleContentChange}

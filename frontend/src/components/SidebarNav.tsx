@@ -2,6 +2,7 @@ import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
 import useLogout from '../hooks/useLogout';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
+import PostModal from './PostModal';
 
 export default function SidebarNav() {
   const { logout } = useLogout();
@@ -171,6 +172,7 @@ export default function SidebarNav() {
           </div>
         </div>
       </div>
+      <PostModal />
     </>
   );
 }

@@ -1,4 +1,3 @@
-import PostModal from '../components/PostModal';
 import SidebarNav from '../components/SidebarNav';
 
 export default function Home() {
@@ -119,7 +118,6 @@ export default function Home() {
           nec dui nunc mattis.
         </p>
       </div>
-      <PostModal />
     </div>
   );
 }
