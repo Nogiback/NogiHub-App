@@ -4,18 +4,18 @@ import { toast } from 'sonner';
 import { useParams } from 'react-router-dom';
 import { User } from '../types/types';
 
-export default function useGetFollowers() {
+export default function useGetUser() {
   const [isLoading, setIsLoading] = useState(false);
-  const [followers, setFollowers] = useState<User[]>([]);
+  const [user, setUser] = useState<User | null>(null);
   const { userID } = useParams() as { userID: string };
 
   useEffect(() => {
-    async function fetchFollowers(userID: string) {
+    async function fetchUser(userID: string) {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users/${userID}/followers`);
+        const res = await axios.get(`/api/users/${userID}`);
         if (res.status === 200) {
-          setFollowers(res.data.followers);
+          setUser(res.data);
         } else {
           throw new Error(res.data.error);
         }
@@ -27,8 +27,8 @@ export default function useGetFollowers() {
         setIsLoading(false);
       }
     }
-    fetchFollowers(userID);
+    fetchUser(userID);
   }, [userID]);
 
-  return { isLoading, followers, setFollowers };
+  return { isLoading, user };
 }

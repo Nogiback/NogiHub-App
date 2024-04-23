@@ -5,7 +5,6 @@ import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import Followers from './pages/Followers';
 import Following from './pages/Following';
-import Posts from './pages/Posts';
 import Likes from './pages/Likes';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
@@ -40,10 +39,6 @@ function App() {
         <Route
           path='/:userID/following'
           element={authUser ? <Following /> : <Navigate to='/login' />}
-        />
-        <Route
-          path='/:userID/posts'
-          element={authUser ? <Posts /> : <Navigate to='/login' />}
         />
         <Route
           path='/:userID/likes'
