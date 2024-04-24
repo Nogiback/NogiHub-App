@@ -10,7 +10,7 @@ export default function SidebarNav() {
 
   return (
     <>
-      <aside className='sticky top-8 hidden h-[calc(100vh-60px)] min-w-64 flex-col items-center justify-between space-y-4 overflow-y-auto bg-base-100 p-4 md:flex 2xl:ml-96'>
+      <aside className='sticky top-8 hidden h-[calc(100vh-60px)] min-w-64 flex-col items-center justify-between space-y-4 overflow-y-auto border-r border-base-300 bg-base-100 p-4 md:flex 2xl:ml-96'>
         <div className='flex w-full flex-col gap-4'>
           <div className='flex justify-center gap-2 pr-6'>
             <a
@@ -86,7 +86,7 @@ export default function SidebarNav() {
 
       {/* Mobile Nav */}
 
-      <div className='navbar bg-base-100 md:hidden'>
+      <div className='navbar sticky top-0 z-50 border-b border-base-300 bg-base-100 md:hidden'>
         <div className='navbar-start'>
           <div className='dropdown'>
             <div
