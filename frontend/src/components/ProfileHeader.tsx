@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import useGetUser from '../hooks/useGetUser';
 import { convertDate } from '../utils/convertDate';
 import FollowButton from './FollowButton';
-import { FaLocationDot, FaCalendarDays } from 'react-icons/fa6';
+import { MapPin, CalendarDays } from 'lucide-react';
+import ProfileHeaderSkeleton from './ProfileHeaderSkeleton';
 
 export default function ProfileHeader() {
   const { isLoading, user } = useGetUser();
@@ -15,7 +16,7 @@ export default function ProfileHeader() {
   return (
     <>
       {isLoading ? (
-        <div>Loading...</div>
+        <ProfileHeaderSkeleton />
       ) : (
         <div className='container flex w-full flex-col gap-4 bg-base-100 p-4 md:w-[600px]'>
           <div className='flex items-center justify-between'>
@@ -33,11 +34,11 @@ export default function ProfileHeader() {
           <span className='text-sm'>{user?.bio}</span>
           <div className='flex gap-4 text-neutral-400'>
             <span className='flex items-center gap-1 text-sm'>
-              <FaLocationDot size={16} />
+              <MapPin size={16} />
               {user?.location}
             </span>
             <span className='flex items-center gap-2 text-sm'>
-              <FaCalendarDays size={16} />
+              <CalendarDays size={16} />
               {`joined ${userJoinedDate}`}
             </span>
           </div>

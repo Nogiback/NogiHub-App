@@ -12,7 +12,7 @@ export default function Followers() {
       <div className='container flex flex-col gap-4'>
         <h1 className='text-4xl font-extrabold underline'>Followers</h1>
         {isLoading ? (
-          <div className='mt-6 flex flex-col gap-12'>
+          <div className='flex flex-col gap-4'>
             <UserCardSkeleton />
             <UserCardSkeleton />
             <UserCardSkeleton />

@@ -1,12 +1,14 @@
 import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
 import useLogout from '../hooks/useLogout';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import PostModal from './PostModal';
 
 export default function SidebarNav() {
   const { logout } = useLogout();
   const { authUser } = useAuthContext();
+  const activeLink = 'flex gap-4 text-primary';
+  const normalLink = 'flex gap-4';
 
   return (
     <>
@@ -23,28 +25,51 @@ export default function SidebarNav() {
           </div>
           <ul className='menu menu-lg w-full'>
             <li>
-              <Link to='/' className='flex gap-4'>
+              <NavLink
+                to='/'
+                className={({ isActive }) =>
+                  isActive ? activeLink : normalLink
+                }
+              >
                 <Home />
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={`/${authUser?._id}`} className='flex gap-4'>
+              <NavLink
+                to={`/${authUser?._id}`}
+                className={({ isActive }) =>
+                  isActive ? activeLink : normalLink
+                }
+                end
+              >
                 <User />
                 Profile
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={`/${authUser?._id}/followers`} className='flex gap-4'>
+              <NavLink
+                to={`/${authUser?._id}/followers`}
+                className={({ isActive }) =>
+                  isActive ? activeLink : normalLink
+                }
+                end
+              >
                 <Users />
                 Followers
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to={`/${authUser?._id}/following`} className='flex gap-4'>
+              <NavLink
+                to={`/${authUser?._id}/following`}
+                className={({ isActive }) =>
+                  isActive ? activeLink : normalLink
+                }
+                end
+              >
                 <Eye />
                 Following
-              </Link>
+              </NavLink>
             </li>
             <li>
               <a onClick={logout} className='flex gap-4'>
@@ -114,13 +139,36 @@ export default function SidebarNav() {
               className='menu dropdown-content menu-md z-[1] mt-3 w-52 rounded-box bg-base-200 p-2 shadow'
             >
               <li>
-                <Link to='/'>Home</Link>
+                <NavLink
+                  to='/'
+                  className={({ isActive }) =>
+                    isActive ? activeLink : normalLink
+                  }
+                >
+                  Home
+                </NavLink>
               </li>
               <li>
-                <Link to={`/${authUser?._id}/followers`}>Followers</Link>
+                <NavLink
+                  to={`/${authUser?._id}/followers`}
+                  className={({ isActive }) =>
+                    isActive ? activeLink : normalLink
+                  }
+                  end
+                >
+                  Followers
+                </NavLink>
               </li>
               <li>
-                <Link to={`/${authUser?._id}/following`}>Following</Link>
+                <NavLink
+                  to={`/${authUser?._id}/following`}
+                  className={({ isActive }) =>
+                    isActive ? activeLink : normalLink
+                  }
+                  end
+                >
+                  Following
+                </NavLink>
               </li>
               <li>
                 <button
@@ -160,10 +208,15 @@ export default function SidebarNav() {
               className='menu dropdown-content menu-md z-[1] mt-3 w-52 rounded-box bg-base-200 p-2 shadow'
             >
               <li>
-                <Link to={`/${authUser?._id}`}>Profile</Link>
-              </li>
-              <li>
-                <Link to='/'>Settings</Link>
+                <NavLink
+                  to={`/${authUser?._id}`}
+                  className={({ isActive }) =>
+                    isActive ? activeLink : normalLink
+                  }
+                  end
+                >
+                  Profile
+                </NavLink>
               </li>
               <li>
                 <a onClick={logout}>Logout</a>

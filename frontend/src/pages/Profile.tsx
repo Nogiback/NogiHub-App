@@ -1,5 +1,5 @@
 import ProfileHeader from '../components/ProfileHeader';
-import ProfilePostsToggleButton from '../components/ProfilePostsToggleButton';
+import ProfilePostsToggleButtons from '../components/ProfilePostsToggleButtons';
 import SidebarNav from '../components/SidebarNav';
 
 export default function Profile() {
@@ -8,7 +8,7 @@ export default function Profile() {
       <SidebarNav />
       <div className='container flex flex-col'>
         <ProfileHeader />
-        <ProfilePostsToggleButton />
+        <ProfilePostsToggleButtons />
       </div>
     </div>
   );
