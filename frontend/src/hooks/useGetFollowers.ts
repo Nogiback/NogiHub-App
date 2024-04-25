@@ -7,13 +7,13 @@ import { User } from '../types/types';
 export default function useGetFollowers() {
   const [isLoading, setIsLoading] = useState(false);
   const [followers, setFollowers] = useState<User[]>([]);
-  const { userID } = useParams() as { userID: string };
+  const { username } = useParams() as { username: string };
 
   useEffect(() => {
-    async function fetchFollowers(userID: string) {
+    async function fetchFollowers(username: string) {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users/${userID}/followers`);
+        const res = await axios.get(`/api/users/${username}/followers`);
         if (res.status === 200) {
           setFollowers(res.data.followers);
         } else {
@@ -27,8 +27,8 @@ export default function useGetFollowers() {
         setIsLoading(false);
       }
     }
-    fetchFollowers(userID);
-  }, [userID]);
+    fetchFollowers(username);
+  }, [username]);
 
-  return { isLoading, followers, setFollowers };
+  return { isLoading, followers };
 }

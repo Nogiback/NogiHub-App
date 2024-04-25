@@ -1,6 +1,6 @@
 import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
-import useLogout from '../hooks/useLogout';
 import { NavLink, Link } from 'react-router-dom';
+import useLogout from '../hooks/useLogout';
 import { useAuthContext } from '../context/AuthContext';
 import PostModal from './PostModal';
 
@@ -37,7 +37,7 @@ export default function SidebarNav() {
             </li>
             <li>
               <NavLink
-                to={`/${authUser?._id}`}
+                to={`/${authUser?.username}`}
                 className={({ isActive }) =>
                   isActive ? activeLink : normalLink
                 }
@@ -49,7 +49,7 @@ export default function SidebarNav() {
             </li>
             <li>
               <NavLink
-                to={`/${authUser?._id}/followers`}
+                to={`/${authUser?.username}/followers`}
                 className={({ isActive }) =>
                   isActive ? activeLink : normalLink
                 }
@@ -61,7 +61,7 @@ export default function SidebarNav() {
             </li>
             <li>
               <NavLink
-                to={`/${authUser?._id}/following`}
+                to={`/${authUser?.username}/following`}
                 className={({ isActive }) =>
                   isActive ? activeLink : normalLink
                 }
@@ -95,7 +95,10 @@ export default function SidebarNav() {
           </ul>
         </div>
         <div className='flex gap-4'>
-          <Link to={`/${authUser?._id}`} className='flex items-center gap-2'>
+          <Link
+            to={`/${authUser?.username}`}
+            className='flex items-center gap-2'
+          >
             <img
               alt='Profile'
               src={authUser?.profilePic}
@@ -150,7 +153,7 @@ export default function SidebarNav() {
               </li>
               <li>
                 <NavLink
-                  to={`/${authUser?._id}/followers`}
+                  to={`/${authUser?.username}/followers`}
                   className={({ isActive }) =>
                     isActive ? activeLink : normalLink
                   }
@@ -161,7 +164,7 @@ export default function SidebarNav() {
               </li>
               <li>
                 <NavLink
-                  to={`/${authUser?._id}/following`}
+                  to={`/${authUser?.username}/following`}
                   className={({ isActive }) =>
                     isActive ? activeLink : normalLink
                   }
@@ -209,7 +212,7 @@ export default function SidebarNav() {
             >
               <li>
                 <NavLink
-                  to={`/${authUser?._id}`}
+                  to={`/${authUser?.username}`}
                   className={({ isActive }) =>
                     isActive ? activeLink : normalLink
                   }

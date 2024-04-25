@@ -7,13 +7,13 @@ import { User } from '../types/types';
 export default function useGetUser() {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const { userID } = useParams() as { userID: string };
+  const { username } = useParams() as { username: string };
 
   useEffect(() => {
-    async function fetchUser(userID: string) {
+    async function fetchUser(username: string) {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users/${userID}`);
+        const res = await axios.get(`/api/users/${username}`);
         if (res.status === 200) {
           setUser(res.data);
         } else {
@@ -27,8 +27,8 @@ export default function useGetUser() {
         setIsLoading(false);
       }
     }
-    fetchUser(userID);
-  }, [userID]);
+    fetchUser(username);
+  }, [username]);
 
   return { isLoading, user };
 }

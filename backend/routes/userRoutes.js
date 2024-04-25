@@ -15,11 +15,11 @@ import {
 const router = express.Router();
 
 router.get("/", verifyUser, getAllUsers);
-router.get("/:userID", verifyUser, getUser);
-router.get("/:userID/followers", verifyUser, getFollowers);
-router.get("/:userID/following", verifyUser, getFollowing);
-router.get("/:userID/likes", verifyUser, getLikedPosts);
-router.get("/:userID/posts", verifyUser, getUserPosts);
+router.get("/:username", verifyUser, getUser);
+router.get("/:username/followers", verifyUser, getFollowers);
+router.get("/:username/following", verifyUser, getFollowing);
+router.get("/:username/likes", verifyUser, getLikedPosts);
+router.get("/:username/posts", verifyUser, getUserPosts);
 
 router.patch("/update", verifyUser, updateUser);
 router.patch("/add/:followID", verifyUser, addToFollowing);

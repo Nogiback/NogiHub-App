@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
+import { MapPin, CalendarDays } from 'lucide-react';
 import useGetUser from '../hooks/useGetUser';
 import { convertDate } from '../utils/convertDate';
 import FollowButton from './FollowButton';
-import { MapPin, CalendarDays } from 'lucide-react';
 import ProfileHeaderSkeleton from './ProfileHeaderSkeleton';
 
 export default function ProfileHeader() {
@@ -44,14 +44,14 @@ export default function ProfileHeader() {
           </div>
           <div className='flex gap-4'>
             <Link
-              to={`/${user?._id}/following`}
+              to={`/${user?.username}/following`}
               className='flex items-center gap-1 text-sm'
             >
               <span className='font-extrabold'>{user?.following.length}</span>
               <span>Following</span>
             </Link>
             <Link
-              to={`/${user?._id}/followers`}
+              to={`/${user?.username}/followers`}
               className='flex items-center gap-1 text-sm'
             >
               <span className='font-extrabold'>{user?.followers.length}</span>

@@ -29,19 +29,19 @@ function App() {
           element={authUser ? <Navigate to='/' /> : <Signup />}
         />
         <Route
-          path='/:userID'
+          path='/:username'
           element={authUser ? <Profile /> : <Navigate to='/login' />}
         />
         <Route
-          path='/:userID/followers'
+          path='/:username/followers'
           element={authUser ? <Followers /> : <Navigate to='/login' />}
         />
         <Route
-          path='/:userID/following'
+          path='/:username/following'
           element={authUser ? <Following /> : <Navigate to='/login' />}
         />
         <Route
-          path='/:userID/likes'
+          path='/:username/likes'
           element={authUser ? <Likes /> : <Navigate to='/login' />}
         />
         <Route path='/404' element={<NotFound />} />

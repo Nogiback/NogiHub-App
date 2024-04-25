@@ -22,7 +22,7 @@ export const getAllUsers = asyncHandler(async (req, res, next) => {
 // GET SINGLE USER
 
 export const getUser = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userID)
+  const user = await User.findOne({ username: req.params.username })
     .select("-password")
     .exec();
 
@@ -37,7 +37,7 @@ export const getUser = asyncHandler(async (req, res, next) => {
 // GET USER'S FOLLOWERS
 
 export const getFollowers = asyncHandler(async (req, res, next) => {
-  const followers = await User.findById(req.params.userID)
+  const followers = await User.findOne({ username: req.params.username })
     .select("followers")
     .populate({
       path: "followers",
@@ -56,7 +56,7 @@ export const getFollowers = asyncHandler(async (req, res, next) => {
 // GET USER'S FOLLOWING LIST
 
 export const getFollowing = asyncHandler(async (req, res, next) => {
-  const following = await User.findById(req.params.userID)
+  const following = await User.findOne({ username: req.params.username })
     .select("following")
     .populate({
       path: "following",
@@ -75,13 +75,14 @@ export const getFollowing = asyncHandler(async (req, res, next) => {
 // GET USER'S LIKED POSTS
 
 export const getLikedPosts = asyncHandler(async (req, res, next) => {
-  const userID = req.params.userID;
-  const likedPosts = await Post.find({ likes: { $in: userID } }).exec();
+  const user = await User.findOne({ username: req.params.username }).exec();
 
-  if (!likedPosts) {
-    res.status(404).json({ message: "Error: No liked posts found." });
+  if (!user) {
+    res.status(404).json({ message: "Error: No user found." });
     return;
   }
+
+  const likedPosts = await Post.find({ likes: { $in: user._id } }).exec();
 
   res.status(200).json(likedPosts);
 });
@@ -89,13 +90,14 @@ export const getLikedPosts = asyncHandler(async (req, res, next) => {
 // GET USER'S POSTS
 
 export const getUserPosts = asyncHandler(async (req, res, next) => {
-  const userID = req.params.userID;
-  const userPosts = await Post.find({ author: userID }).exec();
+  const user = await User.findOne({ username: req.params.username }).exec();
 
-  if (!userPosts) {
-    res.status(404).json({ message: "Error: No user posts found." });
+  if (!user) {
+    res.status(404).json({ message: "Error: No user found." });
     return;
   }
+
+  const userPosts = await Post.find({ author: user._id }).exec();
 
   res.status(200).json(userPosts);
 });

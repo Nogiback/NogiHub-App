@@ -7,13 +7,13 @@ import { User } from '../types/types';
 export default function useGetFollowing() {
   const [isLoading, setIsLoading] = useState(false);
   const [followingUsers, setFollowingUsers] = useState<User[]>([]);
-  const { userID } = useParams() as { userID: string };
+  const { username } = useParams() as { username: string };
 
   useEffect(() => {
-    async function fetchFollowing(userID: string) {
+    async function fetchFollowing(username: string) {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users/${userID}/following`);
+        const res = await axios.get(`/api/users/${username}/following`);
         if (res.status === 200) {
           setFollowingUsers(res.data.following);
         } else {
@@ -27,8 +27,8 @@ export default function useGetFollowing() {
         setIsLoading(false);
       }
     }
-    fetchFollowing(userID);
-  }, [userID]);
+    fetchFollowing(username);
+  }, [username]);
 
   return { isLoading, followingUsers };
 }
