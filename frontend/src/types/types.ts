@@ -24,6 +24,7 @@ export type AuthUser = {
 };
 
 export type Post = {
+  _id: string;
   author: {
     _id: string;
     username: string;

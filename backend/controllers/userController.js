@@ -97,7 +97,9 @@ export const getUserPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  const userPosts = await Post.find({ author: user._id }).exec();
+  const userPosts = await Post.find({ author: user._id })
+    .sort({ createdAt: -1 })
+    .exec();
 
   res.status(200).json(userPosts);
 });
