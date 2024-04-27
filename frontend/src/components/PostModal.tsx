@@ -77,6 +77,7 @@ export default function PostModal() {
             <div className='w-full'>
               {imagePreview && (
                 <img
+                  loading='lazy'
                   className='w-full'
                   src={imagePreview && imagePreview}
                   alt='user image upload'

@@ -203,7 +203,11 @@ export default function SidebarNav() {
               className='avatar btn btn-circle btn-ghost'
             >
               <div className='w-10 rounded-full'>
-                <img alt='user avatar' src={authUser?.profilePic} />
+                <img
+                  loading='lazy'
+                  alt='user avatar'
+                  src={authUser?.profilePic}
+                />
               </div>
             </div>
             <ul

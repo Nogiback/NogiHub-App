@@ -41,7 +41,7 @@ export const getFollowers = asyncHandler(async (req, res, next) => {
     .select("followers")
     .populate({
       path: "followers",
-      select: "username displayName email profilePic",
+      select: "username displayName profilePic bio",
     })
     .exec();
 
@@ -60,7 +60,7 @@ export const getFollowing = asyncHandler(async (req, res, next) => {
     .select("following")
     .populate({
       path: "following",
-      select: "username displayName email profilePic",
+      select: "username displayName profilePic bio",
     })
     .exec();
 
@@ -82,7 +82,13 @@ export const getLikedPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  const likedPosts = await Post.find({ likes: { $in: user._id } }).exec();
+  const likedPosts = await Post.find({ likes: { $in: user._id } })
+    .populate({
+      path: "author",
+      select: "username displayName profilePic",
+    })
+    .sort({ createdAt: -1 })
+    .exec();
 
   res.status(200).json(likedPosts);
 });
@@ -98,6 +104,10 @@ export const getUserPosts = asyncHandler(async (req, res, next) => {
   }
 
   const userPosts = await Post.find({ author: user._id })
+    .populate({
+      path: "author",
+      select: "username displayName profilePic",
+    })
     .sort({ createdAt: -1 })
     .exec();
 

@@ -12,7 +12,11 @@ export default function UserListItem({ user }: Props) {
       <div className='container flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-base-200 p-4 md:w-[550px]'>
         <div className='avatar mt-2 self-start'>
           <div className='w-12 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100'>
-            <img src={user.profilePic} alt='user profile picture' />
+            <img
+              loading='lazy'
+              src={user.profilePic}
+              alt='user profile picture'
+            />
           </div>
         </div>
         <div className='container flex flex-col gap-4'>

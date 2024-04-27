@@ -29,6 +29,7 @@ export type Post = {
     _id: string;
     username: string;
     displayName: string;
+    profilePic: string;
   };
   content: string;
   image: string;

@@ -1,6 +1,7 @@
 import ProfileHeader from '../components/ProfileHeader';
 import ProfilePostsToggleButtons from '../components/ProfilePostsToggleButtons';
 import SidebarNav from '../components/SidebarNav';
+import UserLikedPosts from '../components/UserLikedPosts';
 
 export default function Likes() {
   return (
@@ -9,6 +10,7 @@ export default function Likes() {
       <div className='container flex max-w-[800px] flex-col'>
         <ProfileHeader />
         <ProfilePostsToggleButtons />
+        <UserLikedPosts />
       </div>
     </div>
   );

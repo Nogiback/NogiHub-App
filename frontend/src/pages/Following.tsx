@@ -14,7 +14,7 @@ export default function Following() {
       <div className='container flex flex-col gap-4'>
         <h1 className='text-3xl font-extrabold underline'>{`${username}'s Following`}</h1>
         {isLoading ? (
-          <div className='mt-6 flex flex-col gap-12'>
+          <div className='flex flex-col gap-4'>
             <UserCardSkeleton />
             <UserCardSkeleton />
             <UserCardSkeleton />

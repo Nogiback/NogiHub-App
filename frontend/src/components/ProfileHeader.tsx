@@ -22,7 +22,11 @@ export default function ProfileHeader() {
           <div className='flex items-center justify-between'>
             <div className='avatar'>
               <div className='w-24 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100'>
-                <img src={user?.profilePic} alt='user profile picture' />
+                <img
+                  loading='lazy'
+                  src={user?.profilePic}
+                  alt='user profile picture'
+                />
               </div>
             </div>
             <FollowButton />
