@@ -1,5 +1,7 @@
 import { ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import usePost from '../hooks/usePost';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function PostModal() {
   const [content, setContent] = useState('');
@@ -8,6 +10,9 @@ export default function PostModal() {
   const { isLoading, submitPost } = usePost();
   const fileRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<HTMLDialogElement>(null);
+  const { authUser } = useAuthContext();
+  const nav = useNavigate();
+  const { username } = useParams();
 
   function handleContentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setContent(e.target.value);
@@ -35,6 +40,11 @@ export default function PostModal() {
     setPostImage(null);
     setContent('');
     if (modalRef.current) modalRef.current.close();
+    if (username !== authUser?.username) {
+      nav(`/${authUser?.username}`);
+    } else {
+      window.location.reload();
+    }
   }
 
   return (

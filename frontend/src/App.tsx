@@ -7,6 +7,7 @@ import Followers from './pages/Followers';
 import Following from './pages/Following';
 import Likes from './pages/Likes';
 import PostDetails from './pages/PostDetails';
+import ScrollToTop from './components/ScrollToTop';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { useAuthContext } from './context/AuthContext';
@@ -52,6 +53,7 @@ function App() {
         <Route path='/404' element={<NotFound />} />
         <Route path='*' element={<Navigate to='/404' replace />} />
       </Routes>
+      <ScrollToTop />
       <Toaster closeButton richColors />
     </>
   );
