@@ -9,7 +9,7 @@ import Comment from "../models/Comment.js";
 export const getAllPosts = asyncHandler(async (req, res, next) => {
   const allPosts = await Post.find()
     .sort({ createdAt: -1 })
-    .populate({ path: "author", select: "displayName username" })
+    .populate({ path: "author", select: "displayName username profilePic" })
     .exec();
 
   if (!allPosts) {
@@ -26,7 +26,10 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
   const currentUser = await User.findById(req.user._id).exec();
   const followingPosts = await Post.find({
     author: { $in: currentUser.following },
-  }).exec();
+  })
+    .populate({ path: "author", select: "displayName username profilePic" })
+    .sort({ createdAt: -1 })
+    .exec();
 
   if (!followingPosts) {
     res.status(404).json({ message: "Error: No posts found." });
