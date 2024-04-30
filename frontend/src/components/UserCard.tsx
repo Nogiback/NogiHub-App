@@ -6,7 +6,7 @@ type Props = {
   user: User;
 };
 
-export default function UserListItem({ user }: Props) {
+export default function UserCard({ user }: Props) {
   return (
     <Link to={`/${user.username}`}>
       <div className='container flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-base-200 p-4 md:w-[550px]'>

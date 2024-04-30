@@ -1,6 +1,6 @@
 import SidebarNav from '../components/SidebarNav';
 import UserCardSkeleton from '../components/UserCardSkeleton';
-import UserListItem from '../components/UserListItem';
+import UserCard from '../components/UserCard';
 import useGetFollowing from '../hooks/useGetFollowing';
 import { useParams } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ export default function Following() {
           </div>
         ) : (
           followingUsers.map((followingUser) => (
-            <UserListItem key={followingUser._id} user={followingUser} />
+            <UserCard key={followingUser._id} user={followingUser} />
           ))
         )}
       </div>

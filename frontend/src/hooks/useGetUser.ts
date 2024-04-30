@@ -6,7 +6,7 @@ import { User } from '../types/types';
 
 export default function useGetUser() {
   const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User>();
   const { username } = useParams() as { username: string };
 
   useEffect(() => {

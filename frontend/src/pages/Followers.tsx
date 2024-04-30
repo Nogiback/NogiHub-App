@@ -1,6 +1,6 @@
 import SidebarNav from '../components/SidebarNav';
 import UserCardSkeleton from '../components/UserCardSkeleton';
-import UserListItem from '../components/UserListItem';
+import UserCard from '../components/UserCard';
 import useGetFollowers from '../hooks/useGetFollowers';
 import { useParams } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ export default function Followers() {
           </div>
         ) : (
           followers.map((follower) => (
-            <UserListItem key={follower._id} user={follower} />
+            <UserCard key={follower._id} user={follower} />
           ))
         )}
       </div>
