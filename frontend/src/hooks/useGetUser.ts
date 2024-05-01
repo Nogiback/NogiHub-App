@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { toast } from 'sonner';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { User } from '../types/types';
 
 export default function useGetUser() {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<User>();
   const { username } = useParams() as { username: string };
+  const nav = useNavigate();
 
   useEffect(() => {
     async function fetchUser(username: string) {
@@ -21,14 +21,14 @@ export default function useGetUser() {
         }
       } catch (err) {
         if (err instanceof Error) {
-          toast.error(err.message);
+          nav('/404');
         }
       } finally {
         setIsLoading(false);
       }
     }
     fetchUser(username);
-  }, [username]);
+  }, [nav, username]);
 
   return { isLoading, user };
 }

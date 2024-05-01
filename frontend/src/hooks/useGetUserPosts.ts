@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { toast } from 'sonner';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Post } from '../types/types';
 
 export default function useGetUserPosts() {
   const [isLoading, setIsLoading] = useState(false);
   const [userPosts, setUserPosts] = useState<Post[] | null>(null);
   const { username } = useParams() as { username: string };
+  const nav = useNavigate();
 
   useEffect(() => {
     async function fetchUserPosts(username: string) {
@@ -21,14 +21,14 @@ export default function useGetUserPosts() {
         }
       } catch (err) {
         if (err instanceof Error) {
-          toast.error(err.message);
+          nav('/404');
         }
       } finally {
         setIsLoading(false);
       }
     }
     fetchUserPosts(username);
-  }, [username]);
+  }, [nav, username]);
 
   return { isLoading, userPosts };
 }

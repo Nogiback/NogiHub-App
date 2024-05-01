@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'sonner';
 import { Post } from '../types/types';
 
 export default function useGetUserPosts() {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const nav = useNavigate();
 
   useEffect(() => {
     async function fetchAllPosts() {
@@ -19,14 +20,14 @@ export default function useGetUserPosts() {
         }
       } catch (err) {
         if (err instanceof Error) {
-          toast.error(err.message);
+          nav('/404');
         }
       } finally {
         setIsLoading(false);
       }
     }
     fetchAllPosts();
-  }, []);
+  }, [nav]);
 
   return { isLoading, posts };
 }
