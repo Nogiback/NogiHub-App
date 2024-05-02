@@ -1,6 +1,6 @@
-import useGetUserPosts from '../hooks/useGetUserPosts';
-import PostCard from './PostCard';
-import PostSkeleton from './PostSkeleton';
+import useGetUserPosts from '../../hooks/useGetUserPosts';
+import PostCard from '../PostCard';
+import PostSkeleton from '../PostSkeleton';
 
 export default function UserPosts() {
   const { isLoading, userPosts } = useGetUserPosts();

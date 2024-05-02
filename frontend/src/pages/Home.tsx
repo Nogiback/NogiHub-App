@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SidebarNav from '../components/SidebarNav';
-import FollowingPosts from '../components/FollowingPosts';
-import AllPosts from '../components/AllPosts';
+import FollowingPosts from '../components/Home/FollowingPosts';
+import AllPosts from '../components/Home/AllPosts';
 
 export default function Home() {
   const [showFollowingPosts, setShowFollowingPosts] = useState(true);

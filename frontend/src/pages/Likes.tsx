@@ -1,7 +1,7 @@
-import ProfileHeader from '../components/ProfileHeader';
-import ProfilePostsToggleButtons from '../components/ProfilePostsToggleButtons';
+import ProfileHeader from '../components/Profile/ProfileHeader';
+import ProfilePostsToggleButtons from '../components/Profile/ProfilePostsToggleButtons';
 import SidebarNav from '../components/SidebarNav';
-import UserLikedPosts from '../components/UserLikedPosts';
+import UserLikedPosts from '../components/Profile/UserLikedPosts';
 
 export default function Likes() {
   return (

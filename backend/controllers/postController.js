@@ -43,7 +43,15 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
 
 export const getPost = asyncHandler(async (req, res, next) => {
   const post = await Post.findById(req.params.postID)
-    .populate({ path: "author", select: "displayName username" })
+    .populate({ path: "author", select: "displayName username profilePic" })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "author",
+        model: "User",
+        select: "displayName username profilePic",
+      },
+    })
     .exec();
 
   if (!post) {

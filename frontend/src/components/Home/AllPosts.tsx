@@ -1,6 +1,6 @@
-import useGetAllPosts from '../hooks/useGetAllPosts';
-import PostCard from './PostCard';
-import PostSkeleton from './PostSkeleton';
+import useGetAllPosts from '../../hooks/useGetAllPosts';
+import PostCard from '../PostCard';
+import PostSkeleton from '../PostSkeleton';
 
 export default function AllPosts() {
   const { isLoading, posts } = useGetAllPosts();

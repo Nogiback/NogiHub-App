@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { MapPin, CalendarDays } from 'lucide-react';
-import useGetUser from '../hooks/useGetUser';
-import { convertDate } from '../utils/convertDate';
-import FollowButton from './FollowButton';
+import useGetUser from '../../hooks/useGetUser';
+import { convertDate } from '../../utils/convertDate';
+import FollowButton from '../FollowButton';
 import ProfileHeaderSkeleton from './ProfileHeaderSkeleton';
 
 export default function ProfileHeader() {

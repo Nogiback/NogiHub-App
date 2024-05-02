@@ -1,6 +1,6 @@
-import useGetFollowingPosts from '../hooks/useGetFollowingPosts';
-import PostCard from './PostCard';
-import PostSkeleton from './PostSkeleton';
+import useGetFollowingPosts from '../../hooks/useGetFollowingPosts';
+import PostCard from '../PostCard';
+import PostSkeleton from '../PostSkeleton';
 
 export default function AllPosts() {
   const { isLoading, followingPosts } = useGetFollowingPosts();

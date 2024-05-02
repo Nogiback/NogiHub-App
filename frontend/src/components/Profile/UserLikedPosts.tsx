@@ -1,6 +1,6 @@
-import useGetUserLikes from '../hooks/useGetUserLikes';
-import PostCard from './PostCard';
-import PostSkeleton from './PostSkeleton';
+import useGetUserLikes from '../../hooks/useGetUserLikes';
+import PostCard from '../PostCard';
+import PostSkeleton from '../PostSkeleton';
 
 export default function UserLikedPosts() {
   const { isLoading, userLikes } = useGetUserLikes();
