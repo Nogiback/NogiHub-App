@@ -24,44 +24,49 @@ export default function PostCard({ post }: Props) {
           </Link>
         </div>
       </div>
-      <div className='container flex flex-col gap-4'>
-        <Link to={`/${post.author?.username}/${post._id}`}>
-          <div className='flex items-center justify-between'>
-            <div className='text-sm'>
-              <Link
-                to={`/${post.author?.username}`}
-                className='font-extrabold hover:underline'
-              >
-                {post.author?.displayName}
-              </Link>{' '}
-              <Link
-                to={`/${post.author?.username}`}
-                className='font-light text-neutral-400 hover:underline'
-              >
-                {`@${post.author?.username}`}
-              </Link>
-              <span className='font-light text-neutral-400'>{` · `}</span>
-              <Link
-                to={`/${post.author?.username}/${post._id}`}
-                className='font-light text-neutral-400 hover:underline'
-              >
-                {timestamp}
-              </Link>
-            </div>
-            {/* TODO: DELETE BUTTON FUNCTIONALITY IF AUTH */}
-            <button
-              onClick={(e) => e.preventDefault()}
-              className='btn btn-ghost btn-sm z-50'
+      <div className='container flex flex-col'>
+        <div className='flex items-center justify-between'>
+          <div className='text-sm'>
+            <Link
+              to={`/${post.author?.username}`}
+              className='font-extrabold hover:underline'
             >
-              <Trash2 size={18} color='red' />
-            </button>
+              {post.author?.displayName}
+            </Link>{' '}
+            <Link
+              to={`/${post.author?.username}`}
+              className='font-light text-neutral-400 hover:underline'
+            >
+              {`@${post.author?.username}`}
+            </Link>
+            <span className='font-light text-neutral-400'>{` · `}</span>
+            <Link
+              to={`/${post.author?.username}/${post._id}`}
+              className='font-light text-neutral-400 hover:underline'
+            >
+              {timestamp}
+            </Link>
           </div>
+          {/* TODO: DELETE BUTTON FUNCTIONALITY IF AUTH */}
+          <button
+            onClick={(e) => e.preventDefault()}
+            className='btn btn-ghost btn-sm z-50'
+          >
+            <Trash2 size={18} color='red' />
+          </button>
+        </div>
+        <Link to={`/${post.author?.username}/${post._id}`}>
           <div>
             <span>{post.content}</span>
           </div>
           <div className='mt-2'>
             {post.image && (
-              <img loading='lazy' src={post.image} alt='post image' />
+              <img
+                loading='lazy'
+                src={post.image}
+                alt='post image'
+                className='rounded-lg'
+              />
             )}
           </div>
         </Link>

@@ -1,4 +1,4 @@
-export function convertTimestamp(date: Date) {
+export function convertTimestamp(date: Date): string {
   const now = new Date();
   const postDate = new Date(date);
   const diff = now.getTime() - postDate.getTime();
