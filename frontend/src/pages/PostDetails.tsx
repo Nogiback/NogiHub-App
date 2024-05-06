@@ -16,10 +16,10 @@ export default function PostDetails() {
           <BackButton />
           <h1 className='text-2xl font-extrabold'>Post</h1>
         </div>
-        <div className=''>
+        <div className='flex flex-col gap-4'>
           {post && <PostDetailsCard isLoading={isLoading} post={post} />}
           {post && <CommentInput />}
-          {post && <PostCommentsSection />}
+          {post && <PostCommentsSection post={post} />}
         </div>
       </div>
     </div>

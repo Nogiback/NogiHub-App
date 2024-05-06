@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import { Post } from '../types/types';
 import { convertTimestamp } from '../utils/convertTimestamp';
 import { Trash2, MessageCircle, Heart } from 'lucide-react';
@@ -71,7 +70,7 @@ export default function PostCard({ post }: Props) {
           </div>
         </Link>
         {/* TODO: COMMENT AND LIKE BUTTON FUNCTIONALITY */}
-        <div className='container flex items-center justify-around text-sm'>
+        <div className='container flex items-center justify-around pt-4 text-sm'>
           <div className='flex gap-2'>
             <MessageCircle size={18} />
             <span>{post.comments.length}</span>

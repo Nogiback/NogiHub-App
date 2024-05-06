@@ -34,7 +34,20 @@ export type Post = {
   content: string;
   image: string;
   likes: [string];
-  comments: [string];
+  comments: [Comment];
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Comment = {
+  _id: string;
+  author: {
+    _id: string;
+    username: string;
+    displayName: string;
+    profilePic: string;
+  };
+  content: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -52,11 +65,3 @@ export type SignupFormData = {
   password: string;
   confirmPassword: string;
 };
-
-// export type FollowerData = {
-//   _id: string;
-//   username: string;
-//   displayName: string;
-//   email: string;
-//   profilePic: string;
-// };
