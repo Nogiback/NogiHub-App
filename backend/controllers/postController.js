@@ -46,6 +46,7 @@ export const getPost = asyncHandler(async (req, res, next) => {
     .populate({ path: "author", select: "displayName username profilePic" })
     .populate({
       path: "comments",
+      options: { sort: { createdAt: -1 } },
       populate: {
         path: "author",
         model: "User",
