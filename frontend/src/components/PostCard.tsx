@@ -1,13 +1,16 @@
+import { useAuthContext } from '../context/AuthContext';
 import { Post } from '../types/types';
 import { convertTimestamp } from '../utils/convertTimestamp';
-import { Trash2, MessageCircle, Heart } from 'lucide-react';
+import { MessageCircle, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import DeletePostButton from './DeletePostButton';
 
 type Props = {
   post: Post;
 };
 
 export default function PostCard({ post }: Props) {
+  const { authUser } = useAuthContext();
   const timestamp = convertTimestamp(post.createdAt);
 
   return (
@@ -46,13 +49,10 @@ export default function PostCard({ post }: Props) {
               {timestamp}
             </Link>
           </div>
-          {/* TODO: DELETE BUTTON FUNCTIONALITY IF AUTH */}
-          <button
-            onClick={(e) => e.preventDefault()}
-            className='btn btn-ghost btn-sm z-50'
-          >
-            <Trash2 size={18} color='red' />
-          </button>
+          {/* Delete Button if authUser === post author */}
+          {authUser?._id === post.author._id ? (
+            <DeletePostButton post={post} />
+          ) : null}
         </div>
         <Link to={`/${post.author?.username}/${post._id}`}>
           <div>
