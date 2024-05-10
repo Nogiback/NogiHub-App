@@ -12,7 +12,7 @@ export default function PostCommentsSection({ post }: Props) {
     <>
       {isComments &&
         post.comments?.map((comment) => (
-          <CommentCard key={comment._id} comment={comment} />
+          <CommentCard key={comment._id} comment={comment} post={post} />
         ))}
     </>
   );

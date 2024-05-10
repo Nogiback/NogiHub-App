@@ -1,17 +1,20 @@
-import { Trash2 } from 'lucide-react';
-import { Comment } from '../../types/types';
+import { Comment, Post } from '../../types/types';
 import { convertTimestamp } from '../../utils/convertTimestamp';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../context/AuthContext';
+import DeleteCommentButton from './DeleteCommentButton';
 
 type Props = {
   comment: Comment;
+  post: Post;
 };
 
-export default function CommentCard({ comment }: Props) {
+export default function CommentCard({ comment, post }: Props) {
   const timestamp = convertTimestamp(comment.createdAt);
+  const { authUser } = useAuthContext();
 
   return (
-    <div className='container flex gap-4 border-b border-base-300 pb-4'>
+    <div className='container flex items-center gap-4 border-b border-base-300 pb-4'>
       <div className='avatar mt-2 self-start'>
         <div className='w-12 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100'>
           <Link to={`/${comment.author?.username}`}>
@@ -23,7 +26,7 @@ export default function CommentCard({ comment }: Props) {
           </Link>
         </div>
       </div>
-      <div className='container flex flex-col'>
+      <div className='container flex flex-col gap-2'>
         <div className='flex items-center justify-between'>
           <div className='text-sm'>
             <Link
@@ -41,19 +44,14 @@ export default function CommentCard({ comment }: Props) {
             <span className='font-light text-neutral-400'>{` · `}</span>
             <span className='font-light text-neutral-400'>{timestamp}</span>
           </div>
-          {/* TODO: DELETE BUTTON FUNCTIONALITY IF AUTH */}
-          <button
-            onClick={(e) => e.preventDefault()}
-            className='btn btn-ghost btn-sm z-50'
-          >
-            <Trash2 size={18} color='red' />
-          </button>
         </div>
-
-        <div>
+        <div className='flex items-center justify-start'>
           <span>{comment.content}</span>
         </div>
       </div>
+      {authUser?._id === comment.author._id ? (
+        <DeleteCommentButton comment={comment} post={post} />
+      ) : null}
     </div>
   );
 }
