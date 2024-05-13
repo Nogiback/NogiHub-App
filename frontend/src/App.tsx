@@ -11,6 +11,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { useAuthContext } from './context/AuthContext';
+import AllUsers from './pages/AllUsers';
 
 function App() {
   const { authUser } = useAuthContext();
@@ -29,6 +30,10 @@ function App() {
         <Route
           path='/signup'
           element={authUser ? <Navigate to='/' /> : <Signup />}
+        />
+        <Route
+          path='/users'
+          element={authUser ? <AllUsers /> : <Navigate to='/login' />}
         />
         <Route
           path='/:username'

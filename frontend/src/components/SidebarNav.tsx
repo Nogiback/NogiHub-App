@@ -1,4 +1,12 @@
-import { Home, User, Users, Eye, LogOut, SquarePen } from 'lucide-react';
+import {
+  Home,
+  User,
+  Users,
+  Eye,
+  LogOut,
+  SquarePen,
+  UserSearch,
+} from 'lucide-react';
 import { NavLink, Link } from 'react-router-dom';
 import useLogout from '../hooks/useLogout';
 import { useAuthContext } from '../context/AuthContext';
@@ -69,6 +77,18 @@ export default function SidebarNav() {
               >
                 <Eye />
                 Following
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/users`}
+                className={({ isActive }) =>
+                  isActive ? activeLink : normalLink
+                }
+                end
+              >
+                <UserSearch />
+                Users
               </NavLink>
             </li>
             <li>
