@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+import { body, validationResult } from "express-validator";
 import User from "../models/User.js";
 import Post from "../models/Post.js";
 
@@ -116,9 +117,63 @@ export const getUserPosts = asyncHandler(async (req, res, next) => {
 
 // UPDATE USER'S PROFILE
 
-export const updateUser = asyncHandler(async (req, res, next) => {
-  res.send("updateUser NOT YET IMPLEMENTED");
-});
+export const updateUser = [
+  body("displayName").trim().escape().optional(),
+  body("bio").trim().optional(),
+  body("profilePic").trim().optional(),
+  body("location").trim().escape().optional(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({
+        errors: errors.array(),
+        message: "Error: User profile update failure.",
+      });
+      return;
+    }
+
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      res.status(404).json({ message: "Error: User not found." });
+      return;
+    }
+
+    const displayName = req.body.displayName
+      ? req.body.displayName
+      : user.displayName;
+    const bio = req.body.bio;
+    const location = req.body.location;
+    const profilePic = req.body.image ? req.body.image : user.profilePic;
+
+    const updatedUserDetails = {
+      _id: user._id,
+      displayName,
+      bio,
+      profilePic,
+      location,
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      updatedUserDetails,
+      { new: true }
+    );
+
+    res.status(200).json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      displayName: updatedUser.displayName,
+      email: updatedUser.email,
+      profilePic: updatedUser.profilePic,
+      location: updatedUser.location,
+      bio: updatedUser.bio,
+      message: "User successfully updated.",
+    });
+  }),
+];
 
 // ADD TO USER's FOLLOWING
 
