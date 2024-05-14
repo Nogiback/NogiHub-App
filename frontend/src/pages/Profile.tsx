@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import BackButton from '../components/BackButton';
 import ProfileHeader from '../components/Profile/ProfileHeader';
 import ProfilePostsToggleButtons from '../components/Profile/ProfilePostsToggleButtons';
 import SidebarNav from '../components/SidebarNav';
 import UserPosts from '../components/Profile/UserPosts';
+import BackButton from '../components/BackButton';
 
 export default function Profile() {
   const { username } = useParams();

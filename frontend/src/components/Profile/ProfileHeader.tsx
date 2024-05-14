@@ -4,7 +4,6 @@ import useGetUser from '../../hooks/useGetUser';
 import { convertJoinDate } from '../../utils/convertJoinDate';
 import FollowButton from '../FollowButton';
 import ProfileHeaderSkeleton from './ProfileHeaderSkeleton';
-
 export default function ProfileHeader() {
   const { isLoading, user } = useGetUser();
   let userJoinedDate;
@@ -29,7 +28,7 @@ export default function ProfileHeader() {
                 />
               </div>
             </div>
-            <FollowButton />
+            <FollowButton user={user!} />
           </div>
           <div className='flex flex-col'>
             <span className='text-2xl font-bold'>{user?.displayName}</span>

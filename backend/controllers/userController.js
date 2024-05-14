@@ -41,7 +41,7 @@ export const getFollowers = asyncHandler(async (req, res, next) => {
     .select("followers")
     .populate({
       path: "followers",
-      select: "username displayName profilePic bio",
+      select: "-password",
     })
     .exec();
 
@@ -60,7 +60,7 @@ export const getFollowing = asyncHandler(async (req, res, next) => {
     .select("following")
     .populate({
       path: "following",
-      select: "username displayName profilePic bio",
+      select: "-password",
     })
     .exec();
 

@@ -25,7 +25,7 @@ export default function UserCard({ user }: Props) {
               <span className='text-lg font-bold'>{user.displayName}</span>
               <span className='text-sm text-gray-500'>{`@${user.username}`}</span>
             </div>
-            <FollowButton />
+            <FollowButton user={user} />
           </div>
           <span className='text-sm'>{user.bio}</span>
         </div>
