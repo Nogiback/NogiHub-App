@@ -3,8 +3,12 @@ import { MapPin, CalendarDays } from 'lucide-react';
 import useGetUser from '../../hooks/useGetUser';
 import { convertJoinDate } from '../../utils/convertJoinDate';
 import FollowButton from '../FollowButton';
+import EditProfileButton from './EditProfileButton';
 import ProfileHeaderSkeleton from './ProfileHeaderSkeleton';
+import { useAuthContext } from '../../context/AuthContext';
+
 export default function ProfileHeader() {
+  const { authUser } = useAuthContext();
   const { isLoading, user } = useGetUser();
   let userJoinedDate;
 
@@ -28,7 +32,11 @@ export default function ProfileHeader() {
                 />
               </div>
             </div>
-            <FollowButton user={user!} />
+            {authUser?._id === user?._id ? (
+              <EditProfileButton user={user!} />
+            ) : (
+              <FollowButton user={user!} />
+            )}
           </div>
           <div className='flex flex-col'>
             <span className='text-2xl font-bold'>{user?.displayName}</span>
