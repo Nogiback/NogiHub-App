@@ -38,12 +38,6 @@ export default function EditProfileModal({ user }: Props) {
     }
   }
 
-  // function removeImage() {
-  //   if (fileRef.current) fileRef.current.value = '';
-  //   setProfilePic(null);
-  //   setImagePreview(null);
-  // }
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     await updateProfile(displayName, bio, location, profilePic);
@@ -87,14 +81,6 @@ export default function EditProfileModal({ user }: Props) {
                   onClick={(e) => (e.currentTarget.value = '')}
                 />
               </label>
-              {/* {imagePreview && (
-                <button
-                  onClick={removeImage}
-                  className='btn btn-primary btn-sm'
-                >
-                  Remove
-                </button>
-              )} */}
             </div>
             <label className='form-control w-full'>
               <div className='label'>
