@@ -17,6 +17,9 @@ export default function Followers() {
           <BackButton />
           <h1 className='text-2xl font-extrabold'>{`${username}'s Followers`}</h1>
         </div>
+        {!isLoading && followers?.length === 0 && (
+          <p className='mt-10 text-center'>{`${username} has no followers yet!`}</p>
+        )}
         {isLoading ? (
           <div className='flex flex-col gap-4'>
             <UserCardSkeleton />

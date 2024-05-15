@@ -15,8 +15,11 @@ export default function Following() {
       <div className='container flex flex-col gap-4'>
         <div className='flex items-center justify-start gap-4'>
           <BackButton />
-          <h1 className='text-2xl font-extrabold'>{`${username}'s Followers`}</h1>
+          <h1 className='text-2xl font-extrabold'>{`${username}'s Following`}</h1>
         </div>
+        {!isLoading && followingUsers?.length === 0 && (
+          <p className='mt-10 text-center'>{`${username} is not following anyone yet!`}</p>
+        )}
         {isLoading ? (
           <div className='flex flex-col gap-4'>
             <UserCardSkeleton />

@@ -194,6 +194,17 @@ export default function SidebarNav() {
                 </NavLink>
               </li>
               <li>
+                <NavLink
+                  to={`/users`}
+                  className={({ isActive }) =>
+                    isActive ? activeLink : normalLink
+                  }
+                  end
+                >
+                  Users
+                </NavLink>
+              </li>
+              <li>
                 <button
                   onClick={() =>
                     (
