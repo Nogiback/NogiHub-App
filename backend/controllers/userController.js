@@ -146,7 +146,9 @@ export const updateUser = [
       : user.displayName;
     const bio = req.body.bio;
     const location = req.body.location;
-    const profilePic = req.body.image ? req.body.image : user.profilePic;
+    const profilePic = req.body.profilePic
+      ? req.body.profilePic
+      : user.profilePic;
 
     const updatedUserDetails = {
       _id: user._id,
@@ -175,7 +177,7 @@ export const updateUser = [
   }),
 ];
 
-// ADD TO USER's FOLLOWING
+// ADD TO USER'S FOLLOWING
 
 export const addToFollowing = asyncHandler(async (req, res, next) => {
   const currentUser = await User.findById(req.user._id).exec();

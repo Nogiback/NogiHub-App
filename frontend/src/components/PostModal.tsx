@@ -89,7 +89,7 @@ export default function PostModal() {
                 <img
                   loading='lazy'
                   className='w-full'
-                  src={imagePreview && imagePreview}
+                  src={imagePreview}
                   alt='user image upload'
                 />
               )}

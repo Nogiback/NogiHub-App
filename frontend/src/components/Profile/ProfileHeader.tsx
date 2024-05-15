@@ -56,14 +56,14 @@ export default function ProfileHeader() {
           <div className='flex gap-4'>
             <Link
               to={`/${user?.username}/following`}
-              className='flex items-center gap-1 text-sm'
+              className='flex items-center gap-1 text-sm hover:underline'
             >
               <span className='font-extrabold'>{user?.following.length}</span>
               <span>Following</span>
             </Link>
             <Link
               to={`/${user?.username}/followers`}
-              className='flex items-center gap-1 text-sm'
+              className='flex items-center gap-1 text-sm hover:underline'
             >
               <span className='font-extrabold'>{user?.followers.length}</span>
               <span>Followers</span>
