@@ -3,11 +3,17 @@ import PostCard from '../PostCard';
 import PostSkeleton from '../PostSkeleton';
 
 export default function AllPosts() {
-  const { isLoading, posts } = useGetAllPosts();
+  const { isLoading, posts, setSkip } = useGetAllPosts();
+
+  window.onscroll = function () {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      setSkip(posts.length);
+    }
+  };
 
   return (
     <div className='container flex w-full flex-col gap-4 bg-base-100 p-4 py-4 md:w-[600px]'>
-      {posts?.length === 0 && (
+      {!isLoading && posts?.length === 0 && (
         <p className='mt-10 text-center'>There are no posts yet!</p>
       )}
       {isLoading ? (

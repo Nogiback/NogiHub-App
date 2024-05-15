@@ -7,7 +7,10 @@ import Comment from "../models/Comment.js";
 // GET ALL POSTS
 
 export const getAllPosts = asyncHandler(async (req, res, next) => {
-  const allPosts = await Post.find()
+  const skip =
+    req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+
+  const allPosts = await Post.find({}, undefined, { skip, limit: 5 })
     .sort({ createdAt: -1 })
     .populate({ path: "author", select: "displayName username profilePic" })
     .exec();
@@ -24,9 +27,15 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 export const getFollowingPosts = asyncHandler(async (req, res, next) => {
   const currentUser = await User.findById(req.user._id).exec();
-  const followingPosts = await Post.find({
-    author: { $in: currentUser.following },
-  })
+  const skip =
+    req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+  const followingPosts = await Post.find(
+    {
+      author: { $in: currentUser.following },
+    },
+    undefined,
+    { skip, limit: 5 }
+  )
     .populate({ path: "author", select: "displayName username profilePic" })
     .sort({ createdAt: -1 })
     .exec();

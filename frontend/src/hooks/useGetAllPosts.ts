@@ -1,20 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Post } from '../types/types';
 
 export default function useGetUserPosts() {
   const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState<Post[] | null>(null);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [skip, setSkip] = useState(0);
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchAllPosts() {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/posts`);
+        const res = await axios.get(`/api/posts?skip=${skip}`);
         if (res.status === 200) {
-          setPosts(res.data);
+          setPosts([...posts, ...res.data]);
         } else {
           throw new Error(res.data.error);
         }
@@ -27,7 +28,9 @@ export default function useGetUserPosts() {
       }
     }
     fetchAllPosts();
-  }, [nav]);
 
-  return { isLoading, posts };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [skip]);
+
+  return { isLoading, posts, setSkip };
 }
