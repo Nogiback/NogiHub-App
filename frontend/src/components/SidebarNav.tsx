@@ -213,6 +213,7 @@ export default function SidebarNav() {
                       ) as HTMLDialogElement | null
                     )?.showModal()
                   }
+                  className='bg-primary text-base-300 hover:text-secondary'
                 >
                   Post
                 </button>

@@ -12,14 +12,8 @@ export default function useComment() {
       const commentData = {
         content: content,
       };
-
       // API call to submit comment
-      const res = await axios.post(`/api/posts/${postID}/comment`, commentData);
-      if (res.status === 200) {
-        toast.success('Comment successfully posted.');
-      } else {
-        throw new Error(res.data.error);
-      }
+      await axios.post(`/api/posts/${postID}/comment`, commentData);
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message);

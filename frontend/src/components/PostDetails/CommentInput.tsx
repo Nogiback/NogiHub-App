@@ -39,6 +39,7 @@ export default function CommentInput() {
           onSubmit={handleSubmit}
         >
           <textarea
+            autoFocus
             className='textarea textarea-bordered w-full resize-none'
             rows={2}
             placeholder={`Post your comment`}

@@ -1,10 +1,11 @@
 import { Post } from '../../types/types';
-import { MessageCircle, Heart } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PostSkeleton from '../PostSkeleton';
 import { convertExtendedTimestamp } from '../../utils/convertExtendedTimestamp';
 import { useAuthContext } from '../../context/AuthContext';
 import DeletePostButton from '../DeletePostButton';
+import LikeButton from '../LikeButton';
 
 type Props = {
   isLoading: boolean;
@@ -14,6 +15,7 @@ type Props = {
 export default function PostDetailsCard({ isLoading, post }: Props) {
   const { authUser } = useAuthContext();
   const timestamp = convertExtendedTimestamp(post.createdAt);
+  const isLikedByUser = post.likes.includes(authUser?._id as string);
 
   return (
     <>
@@ -78,16 +80,12 @@ export default function PostDetailsCard({ isLoading, post }: Props) {
                 </Link>
               </div>
             </Link>
-            {/* TODO: COMMENT AND LIKE BUTTON FUNCTIONALITY */}
             <div className='container flex items-center justify-around border-t border-base-300 pt-3 text-sm'>
               <div className='flex gap-2'>
                 <MessageCircle size={18} />
                 <span>{post.comments.length}</span>
               </div>
-              <div className='flex gap-2'>
-                <Heart size={18} />
-                <span>{post.likes.length}</span>
-              </div>
+              <LikeButton post={post} isLikedByUser={isLikedByUser} />
             </div>
           </div>
         </div>
