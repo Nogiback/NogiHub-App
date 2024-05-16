@@ -3,10 +3,11 @@ import PostCard from '../PostCard';
 import PostSkeleton from '../PostSkeleton';
 
 export default function AllPosts() {
-  const { isLoading, posts, setSkip } = useGetAllPosts();
+  const { isLoading, posts, totalPosts, setSkip } = useGetAllPosts();
 
   window.onscroll = function () {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (totalPosts === posts.length) return;
       setSkip(posts.length);
     }
   };

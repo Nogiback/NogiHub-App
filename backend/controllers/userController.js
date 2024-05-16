@@ -76,6 +76,8 @@ export const getFollowing = asyncHandler(async (req, res, next) => {
 // GET USER'S LIKED POSTS
 
 export const getLikedPosts = asyncHandler(async (req, res, next) => {
+  const skip =
+    req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
   const user = await User.findOne({ username: req.params.username }).exec();
 
   if (!user) {
@@ -83,7 +85,11 @@ export const getLikedPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  const likedPosts = await Post.find({ likes: { $in: user._id } })
+  const totalLikes = (await Post.find({ likes: { $in: user._id } })).length;
+  const likedPosts = await Post.find({ likes: { $in: user._id } }, undefined, {
+    skip,
+    limit: 5,
+  })
     .populate({
       path: "author",
       select: "username displayName profilePic",
@@ -91,12 +97,14 @@ export const getLikedPosts = asyncHandler(async (req, res, next) => {
     .sort({ createdAt: -1 })
     .exec();
 
-  res.status(200).json(likedPosts);
+  res.status(200).json({ likedPosts, totalLikes });
 });
 
 // GET USER'S POSTS
 
 export const getUserPosts = asyncHandler(async (req, res, next) => {
+  const skip =
+    req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
   const user = await User.findOne({ username: req.params.username }).exec();
 
   if (!user) {
@@ -104,7 +112,11 @@ export const getUserPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  const userPosts = await Post.find({ author: user._id })
+  const totalUserPosts = (await Post.find({ author: user._id })).length;
+  const userPosts = await Post.find({ author: user._id }, undefined, {
+    skip,
+    limit: 5,
+  })
     .populate({
       path: "author",
       select: "username displayName profilePic",
@@ -112,7 +124,7 @@ export const getUserPosts = asyncHandler(async (req, res, next) => {
     .sort({ createdAt: -1 })
     .exec();
 
-  res.status(200).json(userPosts);
+  res.status(200).json({ userPosts, totalUserPosts });
 });
 
 // UPDATE USER'S PROFILE

@@ -7,6 +7,7 @@ export default function useGetUserPosts() {
   const [isLoading, setIsLoading] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [skip, setSkip] = useState(0);
+  const [totalPosts, setTotalPosts] = useState(0);
   const nav = useNavigate();
 
   useEffect(() => {
@@ -15,7 +16,8 @@ export default function useGetUserPosts() {
       try {
         const res = await axios.get(`/api/posts?skip=${skip}`);
         if (res.status === 200) {
-          setPosts([...posts, ...res.data]);
+          setPosts([...posts, ...res.data.allPosts]);
+          setTotalPosts(res.data.totalPosts);
         } else {
           throw new Error(res.data.error);
         }
@@ -32,5 +34,5 @@ export default function useGetUserPosts() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [skip]);
 
-  return { isLoading, posts, setSkip };
+  return { isLoading, posts, totalPosts, setSkip };
 }

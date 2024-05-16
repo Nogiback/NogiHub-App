@@ -10,6 +10,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
   const skip =
     req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
+  const totalPosts = (await Post.find({})).length;
   const allPosts = await Post.find({}, undefined, { skip, limit: 5 })
     .sort({ createdAt: -1 })
     .populate({ path: "author", select: "displayName username profilePic" })
@@ -20,7 +21,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(allPosts);
+  res.status(200).json({ allPosts, totalPosts });
 });
 
 // GET ONLY USER'S FOLLOWING POSTS
@@ -29,6 +30,11 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
   const currentUser = await User.findById(req.user._id).exec();
   const skip =
     req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+  const totalFollowingPosts = (
+    await Post.find({
+      author: { $in: currentUser.following },
+    })
+  ).length;
   const followingPosts = await Post.find(
     {
       author: { $in: currentUser.following },
@@ -45,7 +51,7 @@ export const getFollowingPosts = asyncHandler(async (req, res, next) => {
     return;
   }
 
-  res.status(200).json(followingPosts);
+  res.status(200).json({ followingPosts, totalFollowingPosts });
 });
 
 // GET SINGLE POST

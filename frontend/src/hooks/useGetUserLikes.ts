@@ -5,7 +5,9 @@ import { Post } from '../types/types';
 
 export default function useGetUserPosts() {
   const [isLoading, setIsLoading] = useState(false);
-  const [userLikes, setUserLikes] = useState<Post[] | null>(null);
+  const [userLikes, setUserLikes] = useState<Post[]>([]);
+  const [skip, setSkip] = useState(0);
+  const [totalLikes, setTotalLikes] = useState(0);
   const { username } = useParams() as { username: string };
   const nav = useNavigate();
 
@@ -13,9 +15,12 @@ export default function useGetUserPosts() {
     async function fetchUserLikes(username: string) {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users/${username}/likes`);
+        const res = await axios.get(
+          `/api/users/${username}/likes?skip=${skip}`,
+        );
         if (res.status === 200) {
-          setUserLikes(res.data);
+          setUserLikes([...userLikes, ...res.data.likedPosts]);
+          setTotalLikes(res.data.totalLikes);
         } else {
           throw new Error(res.data.error);
         }
@@ -28,7 +33,9 @@ export default function useGetUserPosts() {
       }
     }
     fetchUserLikes(username);
-  }, [nav, username]);
 
-  return { isLoading, userLikes };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username, skip]);
+
+  return { isLoading, userLikes, totalLikes, setSkip };
 }
