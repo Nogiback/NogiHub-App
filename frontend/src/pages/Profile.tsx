@@ -4,9 +4,12 @@ import ProfilePostsToggleButtons from '../components/Profile/ProfilePostsToggleB
 import SidebarNav from '../components/SidebarNav';
 import UserPosts from '../components/Profile/UserPosts';
 import BackButton from '../components/BackButton';
+import { useEffect } from 'react';
 
 export default function Profile() {
   const { username } = useParams();
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SidebarNav from '../components/SidebarNav';
 import FollowingPosts from '../components/Home/FollowingPosts';
 import AllPosts from '../components/Home/AllPosts';
@@ -7,6 +7,8 @@ export default function Home() {
   const [showFollowingPosts, setShowFollowingPosts] = useState(true);
   const activeLink = 'btn btn-link btn-lg p-0 text-primary underline';
   const normalLink = 'btn btn-link btn-lg p-0 text-secondary no-underline';
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   function handleShowFollowingPosts() {
     setShowFollowingPosts(true);

@@ -4,10 +4,13 @@ import UserCard from '../components/UserCard';
 import useGetFollowers from '../hooks/useGetFollowers';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
+import { useEffect } from 'react';
 
 export default function Followers() {
   const { isLoading, followers } = useGetFollowers();
   const { username } = useParams();
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>

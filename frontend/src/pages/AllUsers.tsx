@@ -3,9 +3,12 @@ import UserCardSkeleton from '../components/UserCardSkeleton';
 import UserCard from '../components/UserCard';
 import BackButton from '../components/BackButton';
 import useGetAllUsers from '../hooks/useGetAllUsers';
+import { useEffect } from 'react';
 
 export default function AllUsers() {
   const { isLoading, users } = useGetAllUsers();
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>

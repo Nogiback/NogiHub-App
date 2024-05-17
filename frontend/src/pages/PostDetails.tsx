@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import BackButton from '../components/BackButton';
 import CommentInput from '../components/PostDetails/CommentInput';
 import PostCommentsSection from '../components/PostDetails/PostCommentsSection';
@@ -7,6 +8,8 @@ import useGetPost from '../hooks/useGetPost';
 
 export default function PostDetails() {
   const { isLoading, post } = useGetPost();
+
+  useEffect(() => window.scrollTo(0, 0), []);
 
   return (
     <div className='flex w-full flex-col gap-2 p-4 sm:gap-6 sm:p-8 md:flex-row'>
