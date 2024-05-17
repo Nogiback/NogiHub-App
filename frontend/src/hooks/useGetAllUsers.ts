@@ -2,17 +2,20 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { User } from '../types/types';
+import useDebounce from './useDebounce';
 
-export default function useGetUserPosts() {
+export default function useGetAllUsers() {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState<User[] | null>(null);
+  const [query, setQuery] = useState('');
+  const debouncedQuery = useDebounce(query, 500);
   const nav = useNavigate();
 
   useEffect(() => {
     async function fetchAllUsers() {
       setIsLoading(true);
       try {
-        const res = await axios.get(`/api/users`);
+        const res = await axios.get(`/api/users?query=${debouncedQuery}`);
         if (res.status === 200) {
           setUsers(res.data);
         } else {
@@ -27,7 +30,7 @@ export default function useGetUserPosts() {
       }
     }
     fetchAllUsers();
-  }, [nav]);
+  }, [nav, debouncedQuery]);
 
-  return { isLoading, users };
+  return { isLoading, users, setQuery };
 }

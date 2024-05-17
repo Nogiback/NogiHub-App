@@ -7,10 +7,22 @@ import Post from "../models/Post.js";
 
 export const getAllUsers = asyncHandler(async (req, res, next) => {
   const currentUserID = req.user._id;
-  const allUsers = await User.find({ _id: { $ne: currentUserID } })
-    .select("-password")
-    .sort({ username: 1 })
-    .exec();
+  let allUsers;
+
+  if (req.query.query === "") {
+    allUsers = await User.find({ _id: { $ne: currentUserID } })
+      .select("-password")
+      .sort({ username: 1 })
+      .exec();
+  } else {
+    allUsers = await User.find({
+      _id: { $ne: currentUserID },
+      username: { $regex: String(req.query.query), $options: "i" },
+    })
+      .select("-password")
+      .sort({ username: 1 })
+      .exec();
+  }
 
   if (!allUsers) {
     res.status(401).json({ message: "Error: No users found." });
