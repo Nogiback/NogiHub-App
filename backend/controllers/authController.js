@@ -123,9 +123,8 @@ export const login = [
     );
 
     if (!isValidPassword || !user) {
-      return res
-        .status(401)
-        .json({ message: "Incorrect username or password." });
+      res.status(401).json({ message: "Incorrect username or password." });
+      return;
     }
 
     generateToken(user._id, res);
