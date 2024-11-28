@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { User } from '../types/types';
 import useDebounce from './useDebounce';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function useGetAllUsers() {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState<User[] | null>(null);
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query, 500);
+  const { setAuthUser } = useAuthContext();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -23,6 +25,10 @@ export default function useGetAllUsers() {
         }
       } catch (err) {
         if (err instanceof Error) {
+          if (localStorage.getItem('authUser')) {
+            setAuthUser(null);
+            localStorage.removeItem('authUser');
+          }
           nav('/404');
         }
       } finally {
@@ -30,7 +36,7 @@ export default function useGetAllUsers() {
       }
     }
     fetchAllUsers();
-  }, [nav, debouncedQuery]);
+  }, [nav, debouncedQuery, setAuthUser]);
 
   return { isLoading, users, setQuery };
 }

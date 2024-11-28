@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { User } from '../types/types';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function useGetFollowers() {
   const [isLoading, setIsLoading] = useState(false);
   const [followers, setFollowers] = useState<User[]>([]);
   const { username } = useParams() as { username: string };
+  const { setAuthUser } = useAuthContext();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,10 @@ export default function useGetFollowers() {
         }
       } catch (err) {
         if (err instanceof Error) {
+          if (localStorage.getItem('authUser')) {
+            setAuthUser(null);
+            localStorage.removeItem('authUser');
+          }
           nav('/404');
         }
       } finally {
@@ -28,7 +34,7 @@ export default function useGetFollowers() {
       }
     }
     fetchFollowers(username);
-  }, [nav, username]);
+  }, [nav, username, setAuthUser]);
 
   return { isLoading, followers };
 }

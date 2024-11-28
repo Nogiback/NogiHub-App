@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Post } from '../types/types';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function useGetPost() {
   const [isLoading, setIsLoading] = useState(false);
   const [post, setPost] = useState<Post>();
   const { postID } = useParams() as { postID: string };
+  const { setAuthUser } = useAuthContext();
   const nav = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,10 @@ export default function useGetPost() {
         }
       } catch (err) {
         if (err instanceof Error) {
+          if (localStorage.getItem('authUser')) {
+            setAuthUser(null);
+            localStorage.removeItem('authUser');
+          }
           nav('/404');
         }
       } finally {
@@ -28,7 +34,7 @@ export default function useGetPost() {
       }
     }
     fetchPost(postID);
-  }, [nav, postID]);
+  }, [nav, postID, setAuthUser]);
 
   return { isLoading, post };
 }
